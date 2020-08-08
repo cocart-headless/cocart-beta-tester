@@ -132,7 +132,6 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 		 */
 		public static function flush_update_cache() {
 			delete_site_transient( 'update_plugins' ); // Clear all plugin update data
-			delete_site_transient( 'cocart_latest_tag' ); // Previous beta tester value
 		} // END flush_update_cache()
 
 		/**
@@ -171,9 +170,9 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 
 				echo '<p>';
 
-				if ( ! is_plugin_active( 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php' ) && current_user_can( 'activate_plugin', 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php' ) ) :
+				if ( ! is_plugin_active( $this->config['plugin_file'] ) && current_user_can( 'activate_plugin', $this->config['plugin_file'] ) ) :
 
-					echo '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'plugins.php?action=activate&plugin=cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php&plugin_status=active' ), 'activate-plugin_cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php' ) ) . '" class="button button-primary">' . sprintf( esc_html__( 'Activate %s', 'cocart-beta-tester' ), esc_html__( 'CoCart', 'cocart-beta-tester' ) ) . '</a> ';
+					echo '<a href="' . esc_url( wp_nonce_url( self_admin_url( 'plugins.php?action=activate&plugin=' . $this->config['plugin_file'] . '&plugin_status=active' ), 'activate-plugin_' . $this->config['plugin_file'] ) ) . '" class="button button-primary">' . sprintf( esc_html__( 'Activate %s', 'cocart-beta-tester' ), esc_html__( 'CoCart', 'cocart-beta-tester' ) ) . '</a> ';
 
 				else :
 
@@ -188,7 +187,7 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 				endif;
 
 				if ( current_user_can( 'deactivate_plugin', 'cocart-beta-tester/cocart-beta-tester.php' ) ) :
-					echo '<a href="' . esc_url( wp_nonce_url( 'plugins.php?action=deactivate&plugin=cocart-beta-tester/cocart-beta-tester.php&plugin_status=inactive', 'deactivate-plugin_cocart-beta-tester/cocart-beta-tester.php' ) ) . '" class="button button-secondary">' . sprintf( esc_html__( 'Turn off %s plugin', 'cocart-beta-tester' ), esc_html__( 'CoCart: Beta Tester', 'cocart-beta-tester' ) ) . '</a>';
+					echo '<a href="' . esc_url( wp_nonce_url( 'plugins.php?action=deactivate&plugin=cocart-beta-tester/cocart-beta-tester.php&plugin_status=inactive', 'deactivate-plugin_cocart-beta-tester/cocart-beta-tester.php' ) ) . '" class="button button-secondary">' . sprintf( esc_html__( 'Turn off %s plugin', 'cocart-beta-tester' ), esc_html__( 'CoCart - Beta Tester', 'cocart-beta-tester' ) ) . '</a>';
 				endif;
 
 				echo '</p>';
@@ -200,20 +199,16 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 		 * Enable auto updates for CoCart.
 		 *
 		 * @access public
-		 * @param  bool   $should_update Should this auto update.
+		 * @param  bool   $update Should this auto update.
 		 * @param  object $plugin Plugin being checked.
 		 * @return bool
 		 */
-		public function auto_update_cocart( $should_update, $plugin ) {
-			if ( ! isset( $plugin->slug ) ) {
-				return $should_update;
-			}
-
+		public function auto_update_cocart( $update, $plugin ) {
 			if ( 'cart-rest-api-for-woocommerce' === $plugin->slug ) {
-				$should_update = true;
+				return true;
+			} else {
+				return $update;
 			}
-
-			return $should_update;
 		} // END auto_update_cocart()
 
 		/**
@@ -224,17 +219,17 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 		 */
 		public function set_update_args() {
 			$plugin_data                  = $this->get_plugin_data();
+			$latest_prerelease            = $this->get_latest_prerelease();
 
-			$this->config['plugin_name']  = 'CoCart ' . $this->get_latest_prerelease();
+			$this->config['plugin_name']  = 'CoCart Lite ' . $latest_prerelease;
 			$this->config['description']  = $this->get_description();
-			$this->config['version']      = $plugin_data['Version'];
 			$this->config['author']       = $plugin_data['Author'];
 			$this->config['homepage']     = $plugin_data['PluginURI'];
-			$this->config['new_version']  = str_replace( 'v', '', $this->get_latest_prerelease() );
+			$this->config['new_version']  = str_replace( 'v', '', $latest_prerelease );
 			$this->config['last_updated'] = $this->get_date();
 			$this->config['changelog']    = $this->get_changelog();
-			$this->config['zip_name']     = $this->get_latest_prerelease();
-			$this->config['zip_url']      = 'https://github.com/co-cart/co-cart/archive/' . $this->config['zip_name'] . '.zip';
+			$this->config['zip_name']     = $latest_prerelease;
+			$this->config['zip_url']      = 'https://github.com/co-cart/co-cart/archive/' . $latest_prerelease . '.zip';
 		} // END set_update_args()
 
 		/**
@@ -456,11 +451,6 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 		 * @return object $transient updated plugin data transient
 		 */
 		public function api_check( $transient ) {
-			// If no plugins have been checked then return its value without hacking it.
-			if ( empty( $transient->checked ) ) {
-				return $transient;
-			}
-
 			/**
 			 * Clear our transient if we have debug enabled and overruled the transients.
 			 * This will allow the API to check fresh every time.
@@ -473,12 +463,17 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 				delete_site_transient( md5( $this->config['slug'] ) . '_latest_changelog' );
 			}
 
+			// Get plugin data from the currently installed version of Gutenberg.
+			$plugin_data = $this->get_plugin_data();
+			$version     = $plugin_data['Version'];
+
 			// Update tags.
 			$this->set_update_args();
 
 			// Check the version and decide if it's new.
-			$update = version_compare( $this->config['new_version'], $this->config['version'], '>' );
+			$update = version_compare( $this->config['new_version'], $version, '>' );
 
+			// If the version is not newer then return default.
 			if ( ! $update ) {
 				return $transient;
 			}
@@ -631,13 +626,13 @@ if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 		 * @global WP_Filesystem_Base $wp_filesystem WordPress filesystem subclass.
 		 * @param  string             $source        File source location.
 		 * @param  string             $remote_source Remote file source location.
-		 * @param  WP_Upgrader        $upgrader      WP_Upgrader instance.
-		 * @return file|WP_Error
+		 * @param  WP_Upgrader        $upgrader      WordPress Upgrader instance.
+		 * @return string
 		 */
 		public function upgrader_source_selection( $source, $remote_source, $upgrader ) {
 			global $wp_filesystem;
 
-			if ( strstr( $source, '/cart-rest-api-for-woocommerce-' ) ) {
+			if ( strstr( $source, '/co-cart-' ) ) {
 				$corrected_source = trailingslashit( $remote_source ) . trailingslashit( $this->config[ 'proper_folder_name' ] );
 
 				if ( $wp_filesystem->move( $source, $corrected_source, true ) ) {
