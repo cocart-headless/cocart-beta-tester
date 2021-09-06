@@ -324,7 +324,7 @@ class CoCart_Beta_Tester {
 		}
 
 		if ( $this->is_nightly_version( $new_version ) ) {
-			$warning = __( '<h1><span>&#9888;</span>This is a nightly release<span>&#9888;</span></h1>', 'cocart-beta-tester' );
+			$warning = __( '<h1><span>&#9888;</span>This is a nightly build<span>&#9888;</span></h1>', 'cocart-beta-tester' );
 		}
 
 		if ( $this->is_beta_version( $new_version ) ) {
@@ -335,8 +335,19 @@ class CoCart_Beta_Tester {
 			$warning = __( '<h1><span>&#9888;</span>This is a pre-release version<span>&#9888;</span></h1>', 'cocart-beta-tester' );
 		}
 
+		$build = $new_version;
+
+		if ( 'nightly' === $new_version ) {
+			$build = sprintf( esc_html__( '%s Build', 'cocart-beta-tester' ), ucfirst( $new_version ) );
+		} else {
+			$build = sprintf( esc_html__( 'v%s', 'cocart-beta-tester' ), $new_version );
+		}
+
+		$response->name          = 'CoCart Lite (' . $build . ')';
+		$response->plugin_name   = 'CoCart Lite (' . $build . ')';
+
 		// If we are returning a different version than the stable tag on .org, manipulate the returned data.
-		$response->version       = $new_version;
+		$response->version       = $build;
 		$response->download_link = $this->get_download_url( $new_version );
 
 		$response->sections['changelog'] = sprintf(
