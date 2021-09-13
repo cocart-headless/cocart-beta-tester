@@ -49,7 +49,7 @@ class CoCart_Beta_Tester {
 			'plugin_file'        => 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php',
 			'slug'               => 'cart-rest-api-for-woocommerce',
 			'proper_folder_name' => 'cart-rest-api-for-woocommerce',
-			'api_url'            => 'https://api.github.com/repos/co-cart/co-cart/releases',
+			'api_url'            => 'https://api.github.com/repos/co-cart/co-cart/releases?per_page=100',
 			'repo_url'           => 'co-cart/co-cart',
 		);
 
@@ -466,8 +466,7 @@ class CoCart_Beta_Tester {
 	} // END is_in_beta_channel()
 
 	/**
-	 * Return true if release's version string belongs to nightly channel, i.e.
-	 * if it's beta, nightly, rc or stable release.
+	 * Return true if release's version string belongs to nightly channel.
 	 *
 	 * @access protected
 	 * @static
@@ -475,7 +474,7 @@ class CoCart_Beta_Tester {
 	 * @return bool
 	 */
 	protected static function is_in_nightly_channel( $version_str ) {
-		return self::is_beta_version( $version_str ) || self::is_nightly_version( $version_str ) || self::is_rc_version( $version_str ) || self::is_stable_version( $version_str );
+		return self::is_nightly_version( $version_str );
 	} // END is_in_nightly_channel()
 
 	/**
@@ -513,19 +512,35 @@ class CoCart_Beta_Tester {
 	 */
 	public function get_tags( $channel = 'all' ) {
 		$releases = $this->get_data();
-		$releases = array_keys( $releases );
 
-		if ( 'beta' === $channel ) {
-			$releases = array_filter( $releases, array( __CLASS__, 'is_in_beta_channel' ) );
-		} elseif ( 'nightly' === $channel ) {
-			$releases = array_filter( $releases, array( __CLASS__, 'is_in_nightly_channel' ) );
-		} elseif ( 'rc' === $channel ) {
-			$releases = array_filter( $releases, array( __CLASS__, 'is_in_rc_channel' ) );
-		} elseif ( 'stable' === $channel ) {
-			$releases = array_filter( $releases, array( __CLASS__, 'is_in_stable_channel' ) );
+		$tags = array();
+
+		foreach ( $releases as $tag ) {
+			switch( $channel ) {
+				case 'stable':
+					if ( $this->is_in_stable_channel( $tag->tag_name ) ) {
+						$tags[] = $tag;
+					}
+					break;
+				case 'rc':
+					if ( $this->is_in_rc_channel( $tag->tag_name ) ) {
+						$tags[] = $tag;
+					}
+					break;
+				case 'beta':
+					if ( $this->is_in_beta_channel( $tag->tag_name ) ) {
+						$tags[] = $tag;
+					}
+					break;
+				case 'nightly':
+					if ( $this->is_in_nightly_channel( $tag->tag_name ) ) {
+						$tags[] = $tag;
+					}
+					break;
+			}
 		}
 
-		return $releases;
+		return $tags;
 	} // END get_tags()
 
 	/**
