@@ -53,12 +53,12 @@ class CoCart_Beta_Tester_Version_Picker {
 		try {
 			include dirname( __FILE__ ) . '/class-cocart-beta-tester-plugin-upgrader.php';
 
-			$plugin_name = 'woocommerce';
-			$plugin      = 'woocommerce/woocommerce.php';
+			$plugin_name = 'cart-rest-api-for-woocommerce';
+			$plugin      = 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php';
 			$skin_args   = array(
 				'type'    => 'web',
 				'url'     => 'plugins.php?page=cocart-beta-tester-version-picker',
-				'title'   => 'Version switch result',
+				'title'   => __( 'Version switch result', 'cocart-beta-tester' ),
 				'plugin'  => $plugin_name,
 				'version' => $version,
 				'nonce'   => wp_unslash( $_GET['_wpnonce'] ), // WPCS: Input var ok, sanitization ok.
@@ -175,6 +175,11 @@ class CoCart_Beta_Tester_Version_Picker {
 		$settings = CoCart_Beta_Tester::get_settings();
 		$channel  = $settings->channel;
 		?>
+		<style type="text/css">
+		.plugins_page_cocart-beta-tester-version-picker .wc-backbone-modal-main .wc-backbone-modal-header h1 {
+			margin: 0 35px 0 0;
+		}
+		</style>
 		<div class="wrap">
 			<div class="ccbt-content-wrap">
 				<h1><?php esc_html_e( 'Available CoCart Releases', 'cocart-beta-tester' ); ?></h1>
@@ -194,10 +199,10 @@ class CoCart_Beta_Tester_Version_Picker {
 					<input type="hidden" name="page" value="cocart-beta-tester-version-picker">
 
 					<script type="text/template" id="tmpl-ccbt-version-switch-confirm">
-						<div class="cocart-backbone-modal cocart-backbone-modal-beta-tester-version-info">
-							<div class="cocart-backbone-modal-content">
-								<section class="cocart-backbone-modal-main" role="main">
-									<header class="cocart-backbone-modal-header">
+						<div class="wc-backbone-modal wc-backbone-modal-beta-tester-version-info">
+							<div class="wc-backbone-modal-content">
+								<section class="wc-backbone-modal-main" role="main">
+									<header class="wc-backbone-modal-header">
 										<h1>
 											<?php
 											esc_html_e( 'Are you sure you want to switch the version of CoCart plugin?', 'cocart-beta-tester' );
@@ -235,7 +240,7 @@ class CoCart_Beta_Tester_Version_Picker {
 								</section>
 							</div>
 						</div>
-						<div class="cocart-backbone-modal-backdrop modal-close"></div>
+						<div class="wc-backbone-modal-backdrop modal-close"></div>
 					</script>
 
 				</form>

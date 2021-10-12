@@ -68,7 +68,7 @@ class CoCart_Beta_Tester_Settings {
 	 */
 	public function update_section_html( $args ) {
 	?>
-		<p><?php esc_html_e( 'The following settings allow you to choose which CoCart updates to receive on this site, including nightly, beta and RC versions not quite ready for production deployment.', 'cocart-beta-tester' ); ?></p>
+		<p><?php esc_html_e( 'The following settings allow you to choose which CoCart updates to receive on this site, including beta and RC versions not quite ready for production deployment.', 'cocart-beta-tester' ); ?></p>
 
 		<p><?php esc_html_e( 'By their nature, if not using the stable channel, these releases are unstable and should not be used anyplace where your data is important. We strongly recommend you perform the test on a staging site and create a complete backup of your WordPress files and database prior to performing a version switch. We are not responsible for any misuse, deletions, white screens, fatal errors, or any other issue arising from using this plugin.', 'cocart-beta-tester' ); ?></p>
 
@@ -86,10 +86,10 @@ class CoCart_Beta_Tester_Settings {
 		$settings = CoCart_Beta_Tester::get_settings();
 
 		$channels = array(
-			'nightly'   => array(
+			/*'nightly'   => array(
 				'name'        => __( 'Nightly Releases', 'cocart-beta-tester' ),
 				'description' => __( 'Nightly releases contain experimental functionality for testing purposes only. This channel will include features that are unstable and may not move forward into a beta release.', 'cocart-beta-tester' ),
-			),
+			),*/
 			'beta'   => array(
 				'name'        => __( 'Beta Releases', 'cocart-beta-tester' ),
 				'description' => __( 'Beta releases contain upcoming features for testing purposes only. This channel will also include RC and stable releases if more current.', 'cocart-beta-tester' ),

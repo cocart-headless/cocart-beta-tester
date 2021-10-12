@@ -44,7 +44,7 @@ class CoCart_Beta_Tester {
 	 * @access public
 	 */
 	public function __construct() {
-		$this->plugin_name   = plugin_basename( COCART_TESTER_FILE );
+		$this->plugin_name   = plugin_basename( COCART_BETA_TESTER_FILE );
 		$this->plugin_config = array(
 			'plugin_file'        => 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php',
 			'slug'               => 'cart-rest-api-for-woocommerce',
@@ -53,7 +53,7 @@ class CoCart_Beta_Tester {
 			'repo_url'           => 'co-cart/co-cart',
 		);
 
-		register_activation_hook( COCART_TESTER_FILE, array( $this, 'activate' ) );
+		register_activation_hook( COCART_BETA_TESTER_FILE, array( $this, 'activate' ) );
 
 		add_action( 'init', array( $this, 'load_text_domain' ), 0 );
 		add_filter( "plugin_action_links_{$this->plugin_name}", array( $this, 'plugin_action_links' ), 10, 1 );
@@ -118,7 +118,7 @@ class CoCart_Beta_Tester {
 	 * @return string
 	 */
 	public function plugin_url() {
-		return untrailingslashit( plugins_url( '/', COCART_TESTER_FILE ) );
+		return untrailingslashit( plugins_url( '/', COCART_BETA_TESTER_FILE ) );
 	} // END plugin_url()
 
 	/**
@@ -127,6 +127,7 @@ class CoCart_Beta_Tester {
 	 * @access public
 	 */
 	public function includes() {
+		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-admin-assets.php';
 		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-admin-menus.php';
 		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-channel.php';
 		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-version-picker.php';
@@ -278,6 +279,12 @@ class CoCart_Beta_Tester {
 
 		// Get version data.
 		$plugin_data = $this->get_plugin_data();
+
+		// If unable to get new plugin data then just return the current plugin data.
+		if ( is_wp_error( $plugin_data ) ) {
+			return $transient;
+		}
+
 		$version     = $plugin_data['Version'];
 		$new_version = $this->get_latest_channel_release();
 
