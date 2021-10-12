@@ -279,6 +279,7 @@ class CoCart_Beta_Tester {
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
 				$download_url = 'https://github.com/' . $this->plugin_config['repo_url'] . '/releases/download/' . $version . '/' . $this->plugin_config['slug']  . '-' . $version . '.zip';
+				break;
 			}
 		}
 
@@ -300,11 +301,42 @@ class CoCart_Beta_Tester {
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
 				$release_date = $release->published_at;
+				break;
 			}
 		}
 
 		return ! empty( $release_date ) ? date( 'Y-m-d', strtotime( $release_date ) ) : false;
 	} // END get_release_date()
+
+	/**
+	 * Get release changelog.
+	 *
+	 * @access public
+	 * @param  string $version The version.
+	 * @return string
+	 */
+	public function get_release_changelog( $version ) {
+		$releases = $this->get_data();
+
+		$changelog = sprintf(
+			'<p><a target="_blank" href="%s">' . __( 'Read the changelog and find out more about the release on GitHub.', 'cocart-beta-tester' ) . '</a></p>',
+			'https://github.com/co-cart/co-cart/blob/' . $version . '/CHANGELOG.md'
+		);
+
+		foreach ( $releases as $release ) {
+			if ( $version === $release->tag_name ) {
+				if ( ! class_exists( 'Parsedown' ) ) {
+					include_once( dirname( COCART_BETA_TESTER_FILE ) . '/parsedown.php' );
+				}
+				$Parsedown = new Parsedown();
+
+				$changelog = $Parsedown->text( $release->body );
+				break;
+			}
+		}
+
+		return $changelog;
+	} // END get_release_changelog()
 
 	/**
 	 * Get Plugin data.
@@ -339,7 +371,7 @@ class CoCart_Beta_Tester {
 		$new_version = $this->get_latest_channel_release();
 
 		// Check the version and decide if it's new.
-		$update = version_compare( $new_version, $version, '>' );
+		$update = version_compare( ltrim( $new_version, 'v' ), $version, '>' );
 
 		if ( ! $update ) {
 			return $transient;
@@ -350,11 +382,17 @@ class CoCart_Beta_Tester {
 			$transient->response[ $this->plugin_config['plugin_file'] ] = (object) $this->plugin_config;
 		}
 
-		$transient->response[ $this->plugin_config['plugin_file'] ]->new_version = $new_version;
+		$transient->response[ $this->plugin_config['plugin_file'] ]->new_version = ltrim( $new_version, 'v' );
+		$transient->response[ $this->plugin_config['plugin_file'] ]->icons       = array(
+			'2x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/icon-256x256.jpg' ),
+			'1x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/icon-128x128.jpg' ),
+		);
+		$transient->response[ $this->plugin_config['plugin_file'] ]->banners     = array(
+			'low'  => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-772x250.jpg' ),
+			'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg' )
+		);
 		$transient->response[ $this->plugin_config['plugin_file'] ]->zip_url     = $this->get_download_url( $new_version );
 		$transient->response[ $this->plugin_config['plugin_file'] ]->package     = $this->get_download_url( $new_version );
-
-		unset( $transient->no_update[ $this->plugin_config['plugin_file'] ] );
 
 		return $transient;
 	} // END api_check()
@@ -405,14 +443,17 @@ class CoCart_Beta_Tester {
 		$response->last_updated  = $this->get_release_date( $new_version );
 		$response->download_link = $this->get_download_url( $new_version );
 
-		$response->sections['changelog'] = sprintf(
-			'<p><a target="_blank" href="%s">' . __( 'Read the changelog and find out more about the release on GitHub.', 'cocart-beta-tester' ) . '</a></p>',
-			'https://github.com/co-cart/co-cart/blob/' . $new_version . '/CHANGELOG.md'
-		);
+		$response->sections['changelog'] = $this->get_release_changelog( $new_version );
 
 		foreach ( $response->sections as $key => $section ) {
 			$response->sections[ $key ] = $warning . $section;
 		}
+
+		// Override plugin banner.
+		$response->banners = array(
+			'low'  => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-772x250.jpg',
+			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg'
+		);
 
 		return $response;
 	} // END plugins_api_result()
