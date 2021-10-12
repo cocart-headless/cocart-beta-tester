@@ -148,7 +148,7 @@ class CoCart_Beta_Tester_Version_Picker {
 				$tag_version = str_replace( 'v', '', $tag->tag_name );
 
 				$versions_html .= '<li class="ccbt-version-li">';
-				$versions_html .= '<label><input type="radio" ' . checked( $tag_version, $this->current_version, false ) . ' value="' . esc_attr( $tag->tag_name ) . '" name="ccbt_switch_to_version">' . $tag->tag_name;
+				$versions_html .= '<label><input type="radio" ' . checked( $tag_version, $this->current_version, false ) . ' value="' . esc_attr( $tag->tag_name ) . '" name="ccbt_switch_to_version">' . ltrim( $tag->tag_name, 'v' );
 
 				// Is this the current version?
 				if ( $tag_version === $this->current_version ) {

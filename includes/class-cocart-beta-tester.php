@@ -86,7 +86,8 @@ class CoCart_Beta_Tester {
 	 */
 	public static function activate() {
 		delete_site_transient( 'update_plugins' );
-		delete_site_transient( $this->plugin_config['slug'] . '_latest_tag' );
+		delete_site_transient( md5( $this->plugin_config['slug'] ) . '_latest_tag' );
+		delete_site_transient( md5( $this->plugin_config['slug'] ) . '_plugin_data' );
 	} // END activate()
 
 	/**
@@ -166,7 +167,9 @@ class CoCart_Beta_Tester {
 
 		if ( $this->overrule_transients() || empty( $tagged_version ) ) {
 
-			$versions = array_reverse( $this->get_data() );
+			$versions = $this->get_data();
+			$versions = $this->sort_release_order( $versions, true );
+
 			$channel  = $this->get_settings()->channel;
 
 			foreach ( $versions as $version ) {
@@ -202,6 +205,32 @@ class CoCart_Beta_Tester {
 
 		return $tagged_version;
 	} // END get_latest_channel_release()
+
+	/**
+	 * Sort releases in order of tag name.
+	 *
+	 * @access public
+	 * @param  array $versions  - The GitHub releases unordered.
+	 * @param bool   $reverse_order - Returns the releases in reverse order is true.
+	 * @return array $new_order - The GitHub releases ordered by tag name.
+	 */
+	public function sort_release_order( $versions, $reverse_order = false ) {
+		$new_order = array();
+
+		foreach ( $versions as $key => $version ) {
+			$new_order[$version->tag_name] = $version;
+		}
+
+		usort( $new_order, function($a, $b) {
+			return -1 * version_compare ( $a->tag_name, $b->tag_name );
+		});
+
+		if ( $reverse_order ) {
+			$new_order = array_reverse( $new_order );
+		}
+
+		return $new_order;
+	} // END sort_release_order()
 
 	/**
 	 * Get Data from GitHub API.
@@ -345,21 +374,19 @@ class CoCart_Beta_Tester {
 		$build = $new_version;
 
 		if ( 'nightly' === $new_version ) {
-			$build = sprintf( esc_html__( '%s Build', 'cocart-beta-tester' ), ucfirst( $new_version ) );
-		} else {
-			$build = sprintf( esc_html__( '%s', 'cocart-beta-tester' ), $new_version );
+			$build = esc_html__( 'Nightly Build', 'cocart-beta-tester' );
 		}
 
 		$response->name          = 'CoCart Lite (' . $build . ')';
 		$response->plugin_name   = 'CoCart Lite (' . $build . ')';
 
 		// If we are returning a different version than the stable tag on .org, manipulate the returned data.
-		$response->version       = $build;
+		$response->version       = ltrim( $build, 'v' );
 		$response->download_link = $this->get_download_url( $new_version );
 
 		$response->sections['changelog'] = sprintf(
 			'<p><a target="_blank" href="%s">' . __( 'Read the changelog and find out more about the release on GitHub.', 'cocart-beta-tester' ) . '</a></p>',
-			'https://github.com/co-cart/co-cart/blob/' . $response->version . '/CHANGELOG.md'
+			'https://github.com/co-cart/co-cart/blob/' . $new_version . '/CHANGELOG.md'
 		);
 
 		foreach ( $response->sections as $key => $section ) {
@@ -519,6 +546,7 @@ class CoCart_Beta_Tester {
 	 */
 	public function get_tags( $channel = 'all' ) {
 		$releases = $this->get_data();
+		$releases = $this->sort_release_order( $releases );
 
 		$tags = array();
 
