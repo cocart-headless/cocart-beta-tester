@@ -347,7 +347,7 @@ class CoCart_Beta_Tester {
 		if ( 'nightly' === $new_version ) {
 			$build = sprintf( esc_html__( '%s Build', 'cocart-beta-tester' ), ucfirst( $new_version ) );
 		} else {
-			$build = sprintf( esc_html__( 'v%s', 'cocart-beta-tester' ), $new_version );
+			$build = sprintf( esc_html__( '%s', 'cocart-beta-tester' ), $new_version );
 		}
 
 		$response->name          = 'CoCart Lite (' . $build . ')';
