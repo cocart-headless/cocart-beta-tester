@@ -509,7 +509,7 @@ class CoCart_Beta_Tester {
 	 * @return bool
 	 */
 	protected static function is_nightly_version( $version_str ) {
-		return strpos( $version_str, 'nightly' ) !== false;
+		return strpos( $version_str, 'nightly' ) !== false || strpos( $version_str, 'nb' ) !== false || strpos( $version_str, 'night-build' ) !== false;
 	} // END is_nightly_version()
 
 	/**
@@ -533,7 +533,7 @@ class CoCart_Beta_Tester {
 	 * @return bool
 	 */
 	protected static function is_rc_version( $version_str ) {
-		return strpos( $version_str, 'rc' ) !== false;
+		return strpos( $version_str, 'rc' ) !== false || strpos( $version_str, 'RC' ) !== false;
 	} // END is_rc_version()
 
 	/**
