@@ -286,6 +286,27 @@ class CoCart_Beta_Tester {
 	} // END get_download_url()
 
 	/**
+	 * Get release date.
+	 *
+	 * @access public
+	 * @param  string $version The version.
+	 * @return string
+	 */
+	public function get_release_date( $version ) {
+		$releases = $this->get_data();
+
+		$release_date = '';
+
+		foreach ( $releases as $release ) {
+			if ( $version === $release->tag_name ) {
+				$release_date = $release->published_at;
+			}
+		}
+
+		return ! empty( $release_date ) ? date( 'Y-m-d', strtotime( $release_date ) ) : false;
+	} // END get_release_date()
+
+	/**
 	 * Get Plugin data.
 	 *
 	 * @access public
@@ -359,6 +380,7 @@ class CoCart_Beta_Tester {
 			return $response;
 		}
 
+		// If we are returning a different version than the stable tag on .org, manipulate the returned data.
 		if ( $this->is_nightly_version( $new_version ) ) {
 			$warning = __( '<h1><span>&#9888;</span>This is a nightly build<span>&#9888;</span></h1>', 'cocart-beta-tester' );
 		}
@@ -379,9 +401,8 @@ class CoCart_Beta_Tester {
 
 		$response->name          = 'CoCart Lite (' . $build . ')';
 		$response->plugin_name   = 'CoCart Lite (' . $build . ')';
-
-		// If we are returning a different version than the stable tag on .org, manipulate the returned data.
 		$response->version       = ltrim( $build, 'v' );
+		$response->last_updated  = $this->get_release_date( $new_version );
 		$response->download_link = $this->get_download_url( $new_version );
 
 		$response->sections['changelog'] = sprintf(
