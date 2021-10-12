@@ -1,6 +1,6 @@
 <?php
 /**
- * Beta Tester plugin main class
+ * CoCart Beta Tester plugin main class
  *
  * @package CoCart_Beta_Tester
  */

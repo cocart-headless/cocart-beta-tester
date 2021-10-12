@@ -1,6 +1,6 @@
 <?php
 /**
- * CoCart Beta Tester Admin Assets class
+ * CoCart Beta Tester - Admin Assets class
  *
  * @package CoCart_Beta_Tester
  */
@@ -13,14 +13,18 @@ defined( 'ABSPATH' ) || exit;
 class CoCart_Beta_Tester_Admin_Assets {
 
 	/**
-	 * Hook in tabs.
+	 * Constructor
+	 *
+	 * @access public
 	 */
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-	}
+	} // END __construct()
 
 	/**
 	 * Enqueue scripts.
+	 *
+	 * @access public
 	 */
 	public function admin_scripts() {
 		$screen    = get_current_screen();
@@ -39,7 +43,7 @@ class CoCart_Beta_Tester_Admin_Assets {
 			'cc-beta-tester-version-picker',
 			'cc_beta_tester_version_picker_params',
 			array(
-				'i18n_pick_version' => __( 'Please pick a CoCart version.', 'woocommerce-beta-tester' ),
+				'i18n_pick_version' => __( 'Please pick a CoCart version.', 'cocart-beta-tester' ),
 			)
 		);
 
@@ -47,7 +51,8 @@ class CoCart_Beta_Tester_Admin_Assets {
 			wp_enqueue_style( 'woocommerce_admin_styles' );
 			wp_enqueue_script( 'cc-beta-tester-version-picker' );
 		}
-	}
-}
+	} // END admin_scripts()
+
+} // END class
 
 return new CoCart_Beta_Tester_Admin_Assets();

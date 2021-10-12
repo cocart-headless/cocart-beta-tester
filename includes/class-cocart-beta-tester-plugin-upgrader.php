@@ -21,9 +21,9 @@ class CoCart_Beta_Tester_Plugin_Upgrader extends Plugin_Upgrader {
 	/**
 	 * Switch plugin version.
 	 *
-	 * @param string $plugin Plugin we're switching.
-	 * @param array  $args Args.
-	 *
+	 * @access public
+	 * @param  string $plugin Plugin we're switching.
+	 * @param  array  $args Args.
 	 * @return array|bool|\WP_Error
 	 */
 	public function switch_version( $plugin, $args = array() ) {
@@ -68,6 +68,6 @@ class CoCart_Beta_Tester_Plugin_Upgrader extends Plugin_Upgrader {
 		wp_clean_plugins_cache( $parsed_args['clear_update_cache'] );
 
 		return true;
-	}
+	} // END switch_version()
 
-}
+} // END class

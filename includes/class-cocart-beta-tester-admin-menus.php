@@ -1,6 +1,6 @@
 <?php
 /**
- * Beta Tester Admin Menus class.
+ * CoCart Beta Tester - Admin Menus class.
  *
  * @package CoCart_Beta_Tester
  */
@@ -14,6 +14,8 @@ class CoCart_Beta_Tester_Admin_Menus {
 
 	/**
 	 * Constructor
+	 *
+	 * @access public
 	 */
 	public function __construct() {
 		if ( class_exists( 'CoCart' ) ) {
@@ -123,14 +125,16 @@ class CoCart_Beta_Tester_Admin_Menus {
 	 * Hide menu items from view so the pages exist, but the menu items do not.
 	 *
 	 * @access public
+	 * @global $submenu
 	 */
 	public function hide_from_menus() {
 		global $submenu;
 
 		$items_to_remove = array( 'cocart-beta-tester-settings', 'cocart-beta-tester-version-picker', 'cocart-beta-tester' );
+
 		if ( isset( $submenu['plugins.php'] ) ) {
 			foreach ( $submenu['plugins.php'] as $key => $menu ) {
-				if (  in_array( $menu[2], $items_to_remove ) ) {
+				if ( in_array( $menu[2], $items_to_remove ) ) {
 					unset( $submenu['plugins.php'][ $key ] );
 				}
 			}

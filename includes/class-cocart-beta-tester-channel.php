@@ -1,6 +1,6 @@
 <?php
 /**
- * Beta Tester plugin settings class.
+ * CoCart Beta Tester plugin settings class.
  *
  * @package CoCart_Beta_Tester
  */
@@ -20,7 +20,7 @@ class CoCart_Beta_Tester_Settings {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'settings_init' ) );
 		add_action( 'admin_menu', array( $this, 'add_to_menus' ) );
-	}
+	} // END __construct()
 
 	/**
 	 * Initialise settings.

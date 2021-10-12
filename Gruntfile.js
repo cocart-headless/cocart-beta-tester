@@ -25,6 +25,31 @@ module.exports = function(grunt) {
 				}
 			},
 
+			// Minify JavaScript
+			uglify: {
+				options: {
+					compress: {
+						global_defs: {
+							"EO_SCRIPT_DEBUG": false
+						},
+						dead_code: true
+					},
+					banner: '/*! <%= pkg.title %> v<%= pkg.version %> <%= grunt.template.today("dddd dS mmmm yyyy HH:MM:ss TT Z") %> */'
+				},
+				build: {
+					files: [{
+						expand: true,
+						cwd: 'assets/js',
+						src: [
+							'*.js',
+							'!*.min.js'
+						],
+						dest: 'assets/js',
+						ext: '.min.js'
+					}]
+				}
+			},
+
 			// Generate .pot file
 			makepot: {
 				target: {
@@ -142,14 +167,6 @@ module.exports = function(grunt) {
 							to: "Requires PHP: <%= pkg.requires_php %>"
 						},
 						{
-							from: /WC requires at least:.*$/m,
-							to: "WC requires at least: <%= pkg.wc_requires %>"
-						},
-						{
-							from: /WC tested up to:.*$/m,
-							to: "WC tested up to: <%= pkg.wc_tested_up_to %>"
-						},
-						{
 							from: /Version:.*$/m,
 							to: "Version:     <%= pkg.version %>"
 						},
@@ -162,12 +179,8 @@ module.exports = function(grunt) {
 							to: "public static $required_wp = '<%= pkg.requires %>'"
 						},
 						{
-							from: /public static \$required_woo = \'.*.'/m,
-							to: "public static $required_woo = '<%= pkg.wc_requires %>'"
-						},
-						{
-							from: /public static \$required_php = \'.*.'/m,
-							to: "public static $required_php = '<%= pkg.requires_php %>'"
+							from: /COCART_BETA_TESTER_VERSION\', \'.*.'/m,
+							to: "\COCART_BETA_TESTER_VERSION', '<%= pkg.version %>'"
 						}
 					]
 				},
@@ -238,7 +251,10 @@ module.exports = function(grunt) {
 	grunt.registerTask( 'check', [ 'devUpdate' ] );
 
 	// Checks for errors.
-	grunt.registerTask( 'test', ['checktextdomain' ] );
+	grunt.registerTask( 'test', [ 'checktextdomain' ] );
+
+	// Minify JS and runs i18n tasks.
+	grunt.registerTask( 'build', [ 'uglify', 'update-pot' ] );
 
 	// Update version of plugin.
 	grunt.registerTask( 'version', [ 'replace:php' ] );

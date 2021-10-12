@@ -58,4 +58,4 @@ A plugin called [Git Updater](https://git-updater.com/) is supported. Install th
 
 ### Where can I report bugs or contribute to CoCart Beta Tester?
 
-Bugs can be reported to the [CoCart Beta Tester GitHub issue tracker](woocommerce/woocommerce-beta-tester).
+Bugs can be reported to the [CoCart Beta Tester GitHub issue tracker](https://github.com/co-cart/cocart-beta-tester/issues).

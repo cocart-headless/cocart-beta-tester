@@ -1,6 +1,6 @@
 <?php
 /**
- * Beta Tester plugin Version Picker class
+ * CoCart Beta Tester - Version Picker
  *
  * @package CoCart_Beta_Tester
  */
@@ -8,14 +8,15 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Settings Class.
+ * CoCart_Beta_Tester_Version_Picker.
  */
 class CoCart_Beta_Tester_Version_Picker {
 
 	/**
-	 * Currently installed version of CoCart plugin.
+	 * Currently installed version of CoCart Lite plugin.
 	 *
-	 * @var string
+	 * @access protected
+	 * @var    string
 	 */
 	protected $current_version = '';
 
@@ -27,7 +28,7 @@ class CoCart_Beta_Tester_Version_Picker {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_to_menus' ) );
 		add_action( 'admin_init', array( $this, 'handle_version_switch' ) );
-	}
+	} // END __construct()
 
 	/**
 	 * Handler for the version switch button.
@@ -96,11 +97,12 @@ class CoCart_Beta_Tester_Version_Picker {
 				wp_die( esc_html( $e->getMessage() ) );
 			}
 		}
-	}
+	} // END handle_version_switch()
 
 	/**
 	 * Add options page to menu.
 	 *
+	 * @access public
 	 * @return void
 	 */
 	public function add_to_menus() {
@@ -112,12 +114,13 @@ class CoCart_Beta_Tester_Version_Picker {
 			'cocart-beta-tester-version-picker',
 			array( $this, 'select_versions_form_html' )
 		);
-	}
+	} // END add_to_menus()
 
 	/**
 	 * Return HTML code representation of list of CoCart versions for the selected channel.
 	 *
-	 * @param string $channel Filter versions by channel: all|beta|rc|stable.
+	 * @access public
+	 * @param  string $channel Filter versions by channel: all|beta|rc|stable.
 	 * @return string
 	 */
 	public function get_versions_html( $channel ) {
@@ -162,10 +165,12 @@ class CoCart_Beta_Tester_Version_Picker {
 		}
 
 		return $versions_html;
-	}
+	} // END get_versions_html()
 
 	/**
 	 * Echo HTML form to switch CoCart versions, filtered for the selected channel.
+	 *
+	 * @access public
 	 */
 	public function select_versions_form_html() {
 		if ( ! current_user_can( 'install_plugins' ) ) {
@@ -247,7 +252,8 @@ class CoCart_Beta_Tester_Version_Picker {
 			</div>
 		</div>
 		<?php
-	}
-}
+	} // END select_versions_form_html()
+
+} // END class
 
 new CoCart_Beta_Tester_Version_Picker();
