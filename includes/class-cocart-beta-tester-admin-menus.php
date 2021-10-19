@@ -85,7 +85,7 @@ class CoCart_Beta_Tester_Admin_Menus {
 				),
 			)
 		);
-	
+
 		$nodes = array(
 			array(
 				'parent' => 'cocart-beta-tester-internal',

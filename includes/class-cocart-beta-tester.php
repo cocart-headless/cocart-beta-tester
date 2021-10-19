@@ -122,7 +122,7 @@ class CoCart_Beta_Tester {
 	} // END includes()
 
 	/**
-	 * Check whether or not the transients need to be overruled and 
+	 * Check whether or not the transients need to be overruled and
 	 * API needs to be called for every single page load.
 	 *
 	 * @access public
@@ -157,7 +157,7 @@ class CoCart_Beta_Tester {
 			$versions = $this->get_data();
 			$versions = $this->sort_release_order( $versions, true );
 
-			$channel  = $this->get_settings()->channel;
+			$channel = $this->get_settings()->channel;
 
 			foreach ( $versions as $version ) {
 				switch ( $channel ) {
@@ -198,18 +198,18 @@ class CoCart_Beta_Tester {
 	 *
 	 * @access public
 	 * @param  array $versions  - The GitHub releases unordered.
-	 * @param bool   $reverse_order - Returns the releases in reverse order is true.
+	 * @param  bool  $reverse_order - Returns the releases in reverse order is true.
 	 * @return array $new_order - The GitHub releases ordered by tag name.
 	 */
 	public function sort_release_order( $versions, $reverse_order = false ) {
 		$new_order = array();
 
 		foreach ( $versions as $key => $version ) {
-			$new_order[$version->tag_name] = $version;
+			$new_order[ $version->tag_name ] = $version;
 		}
 
-		usort( $new_order, function($a, $b) {
-			return -1 * version_compare ( $a->tag_name, $b->tag_name );
+		usort( $new_order, function( $a, $b ) {
+			return -1 * version_compare( $a->tag_name, $b->tag_name );
 		});
 
 		if ( $reverse_order ) {
@@ -265,7 +265,7 @@ class CoCart_Beta_Tester {
 
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
-				$download_url = 'https://github.com/' . $this->plugin_config['repo_url'] . '/releases/download/' . $version . '/' . $this->plugin_config['slug']  . '-' . $version . '.zip';
+				$download_url = 'https://github.com/' . $this->plugin_config['repo_url'] . '/releases/download/' . $version . '/' . $this->plugin_config['slug'] . '-' . $version . '.zip';
 				break;
 			}
 		}
@@ -313,7 +313,7 @@ class CoCart_Beta_Tester {
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
 				if ( ! class_exists( 'Parsedown' ) ) {
-					include_once( dirname( COCART_BETA_TESTER_FILE ) . '/parsedown.php' );
+					include_once dirname( COCART_BETA_TESTER_FILE ) . '/parsedown.php';
 				}
 				$Parsedown = new Parsedown();
 
@@ -376,7 +376,7 @@ class CoCart_Beta_Tester {
 		);
 		$transient->response[ $this->plugin_config['plugin_file'] ]->banners     = array(
 			'low'  => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-772x250.jpg' ),
-			'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg' )
+			'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg' ),
 		);
 		$transient->response[ $this->plugin_config['plugin_file'] ]->zip_url     = $this->get_download_url( $new_version );
 		$transient->response[ $this->plugin_config['plugin_file'] ]->package     = $this->get_download_url( $new_version );
@@ -439,7 +439,7 @@ class CoCart_Beta_Tester {
 		// Override plugin banner.
 		$response->banners = array(
 			'low'  => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-772x250.jpg',
-			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg'
+			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg',
 		);
 
 		return $response;
@@ -600,7 +600,7 @@ class CoCart_Beta_Tester {
 		$tags = array();
 
 		foreach ( $releases as $tag ) {
-			switch( $channel ) {
+			switch ( $channel ) {
 				case 'stable':
 					if ( $this->is_in_stable_channel( $tag->tag_name ) ) {
 						$tags[] = $tag;

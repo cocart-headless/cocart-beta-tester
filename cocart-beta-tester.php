@@ -51,7 +51,7 @@ if ( ! function_exists( 'cocart_beta_tester' ) ) {
 			add_action( 'admin_notices', function() {
 				include_once untrailingslashit( plugin_dir_path( COCART_BETA_TESTER_FILE ) ) . '/includes/views/html-admin-notice-missing-cocart.php';
 			} );
-		} else if ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
+		} elseif ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
 			include_once untrailingslashit( plugin_dir_path( COCART_BETA_TESTER_FILE ) ) . '/includes/class-cocart-beta-tester.php';
 
 			CoCart_Beta_Tester::instance();

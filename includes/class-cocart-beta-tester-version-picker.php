@@ -141,7 +141,7 @@ class CoCart_Beta_Tester_Version_Picker {
 		$this->current_version = $plugin_data['Version'];
 
 		if ( 'nightly' !== $channel ) {
-			$versions_html        .= '<ul class="ccbt-version-list">';
+			$versions_html .= '<ul class="ccbt-version-list">';
 
 			// Loop through versions and output in a radio list.
 			foreach ( $tags as $tag ) {

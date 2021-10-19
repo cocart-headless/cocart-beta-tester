@@ -67,7 +67,7 @@ class CoCart_Beta_Tester_Settings {
 	 * @param  array $args Arguments.
 	 */
 	public function update_section_html( $args ) {
-	?>
+		?>
 		<p><?php esc_html_e( 'The following settings allow you to choose which CoCart updates to receive on this site, including beta and RC versions not quite ready for production deployment.', 'cocart-beta-tester' ); ?></p>
 
 		<p><?php esc_html_e( 'By their nature, if not using the stable channel, these releases are unstable and should not be used anyplace where your data is important. We strongly recommend you perform the test on a staging site and create a complete backup of your WordPress files and database prior to performing a version switch. We are not responsible for any misuse, deletions, white screens, fatal errors, or any other issue arising from using this plugin.', 'cocart-beta-tester' ); ?></p>

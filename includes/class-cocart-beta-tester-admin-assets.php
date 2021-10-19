@@ -30,14 +30,13 @@ class CoCart_Beta_Tester_Admin_Assets {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
-		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Need admin styles for the modal.
 		wp_register_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), WC_VERSION );
 
 		// Register scripts.
 		wp_register_script( 'cc-beta-tester-version-picker', CoCart_Beta_Tester::instance()->plugin_url() . '/assets/js/version-picker' . $suffix . '.js', array( 'wc-backbone-modal' ), COCART_BETA_TESTER_VERSION );
-
 
 		wp_localize_script(
 			'cc-beta-tester-version-picker',

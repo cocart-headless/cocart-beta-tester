@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				echo sprintf( '<a href="%1$s" class="button button-primary" aria-label="%2$s">%2$s</a>', esc_url( wp_nonce_url( self_admin_url( add_query_arg( array(
 					'action'        => 'activate',
 					'plugin'        => 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php',
-					'plugin_status' => 'active'
+					'plugin_status' => 'active',
 				), 'plugins.php' ) ), 'activate-plugin_cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php' ) ), sprintf( esc_html__( 'Activate %s', 'cocart-beta-tester' ), 'CoCart' ) );
 
 			else :
@@ -45,12 +45,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			endif;
 
-		else:
+		else :
 
 			if ( current_user_can( 'install_plugins' ) ) {
 				$url = wp_nonce_url( self_admin_url( add_query_arg( array(
 					'action' => 'install-plugin',
-					'plugin' => 'cart-rest-api-for-woocommerce'
+					'plugin' => 'cart-rest-api-for-woocommerce',
 				), 'update.php' ) ), 'install-plugin_cart-rest-api-for-woocommerce' );
 			} else {
 				$url = 'https://wordpress.org/plugins/cart-rest-api-for-woocommerce/';
@@ -61,11 +61,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		endif;
 
 		if ( current_user_can( 'deactivate_plugin', 'cocart-pro/cocart-pro.php' ) ) :
-			echo sprintf( 
-				' <a href="%1$s" class="button button-secondary" aria-label="%2$s">%2$s</a>', 
+			echo sprintf(
+				' <a href="%1$s" class="button button-secondary" aria-label="%2$s">%2$s</a>',
 				esc_url( wp_nonce_url( self_admin_url( add_query_arg( array(
 					'action' => 'deactivate',
-					'plugin' => 'cocart-beta-tester/cocart-beta-tester.php'
+					'plugin' => 'cocart-beta-tester/cocart-beta-tester.php',
 				), 'plugins.php' ) ), 'deactivate-plugin_cocart-beta-tester/cocart-beta-tester.php' ) ),
 				esc_html__( 'Turn off Beta Tester', 'cocart-beta-tester' )
 			);
