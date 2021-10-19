@@ -1,6 +1,6 @@
 # Changelog for CoCart Beta Tester
 
-## v2.0.0 - 12th October, 2021
+## v2.0.0 - 20th October, 2021
 
 * Enhancement - Channel selection; choose to receive RC or beta versions.
 * Enhancement - Admin bar item shows version information, and offers shortcuts to functionality.
