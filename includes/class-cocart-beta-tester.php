@@ -55,7 +55,6 @@ class CoCart_Beta_Tester {
 
 		register_activation_hook( COCART_BETA_TESTER_FILE, array( $this, 'activate' ) );
 
-		add_action( 'init', array( $this, 'load_text_domain' ), 0 );
 		add_filter( "plugin_action_links_{$this->plugin_name}", array( $this, 'plugin_action_links' ), 10, 1 );
 		add_filter( 'auto_update_plugin', array( $this, 'auto_update_cocart' ), 100, 2 );
 
@@ -67,16 +66,6 @@ class CoCart_Beta_Tester {
 
 		$this->includes();
 	} // END__construct()
-
-	/**
-	 * Load the plugin text domain once the plugin has initialized.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function load_text_domain() {
-		load_plugin_textdomain( 'cocart-beta-tester', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	} // END load_text_domain()
 
 	/**
 	 * Ran on activation to flush update cache.
