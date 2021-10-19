@@ -195,7 +195,7 @@ module.exports = function(grunt) {
 							src: [
 								'**',
 								'!.*',
-								'!**/*.{gif,jpg,jpeg,js,json,log,lock,md,png,scss,sh,txt,xml,zip}',
+								'!**/*.{gif,jpg,jpeg,json,log,lock,md,png,scss,sh,txt,xml,zip}',
 								'!.*/**',
 								'!.DS_Store',
 								'!.htaccess',
@@ -210,6 +210,7 @@ module.exports = function(grunt) {
 								'!tests/**',
 								'!vendor/**',
 								'!unit-tests/**',
+								'!Gruntfile.js',
 								'readme.txt'
 							],
 							dest: 'build/',
