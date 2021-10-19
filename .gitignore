@@ -15,10 +15,6 @@ Thumbs.db
 /vendor/
 composer.lock
 
-# Languages
-/languages/*
-!/languages/README.md
-
 # Build & Releases
 /build/
 /releases/
