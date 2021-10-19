@@ -75,8 +75,6 @@ class CoCart_Beta_Tester {
 	 */
 	public static function activate() {
 		delete_site_transient( 'update_plugins' );
-		delete_site_transient( md5( $this->plugin_config['slug'] ) . '_latest_tag' );
-		delete_site_transient( md5( $this->plugin_config['slug'] ) . '_plugin_data' );
 	} // END activate()
 
 	/**
