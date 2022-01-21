@@ -5,7 +5,7 @@
  * Description: Easily update to prerelease versions of CoCart Lite for testing and development purposes.
  * Author:      CoCart
  * Author URI:  https://cocart.xyz
- * Version:     2.0.0
+ * Version:     2.1.0
  * Text Domain: cocart-beta-tester
  * Domain Path: /languages/
  * Requires at least: 5.5
@@ -22,7 +22,7 @@ if ( ! defined( 'COCART_BETA_TESTER_FILE' ) ) {
 }
 
 if ( ! defined( 'COCART_BETA_TESTER_VERSION' ) ) {
-	define( 'COCART_BETA_TESTER_VERSION', '2.0.0' );
+	define( 'COCART_BETA_TESTER_VERSION', '2.1.0' );
 }
 
 /**

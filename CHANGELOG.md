@@ -1,5 +1,11 @@
 # Changelog for CoCart Beta Tester
 
+## v2.1.0 - 21st January, 2022
+
+* Corrected plugin icon displayed on update page when an update is available.
+* Added link to changelog per release when viewing the version picker page.
+* Improved the updater to allow beta releases of other CoCart plugins to be supported in the future.
+
 ## v2.0.0 - 20th October, 2021
 
 * Enhancement - Channel selection; choose to receive RC or beta versions.

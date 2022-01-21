@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 class CoCart_Beta_Tester_Version_Picker {
 
 	/**
-	 * Currently installed version of CoCart Lite plugin.
+	 * Currently installed version of the plugin.
 	 *
 	 * @access protected
 	 * @var    string
@@ -21,11 +21,28 @@ class CoCart_Beta_Tester_Version_Picker {
 	protected $current_version = '';
 
 	/**
+	 * Plugin file.
+	 *
+	 * @var string
+	 */
+	private $plugin_file;
+
+	/**
+	 * Plugin SLug
+	 *
+	 * @var string
+	 */
+	public $plugin_slug;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access public
 	 */
 	public function __construct() {
+		$this->plugin_file = ! empty( $_REQUEST['_ccbt_pf'] ) ? trim( $_REQUEST['_ccbt_pf'] ) : 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php';
+		$this->plugin_slug = ! empty( $_REQUEST['_ccbt_ps'] ) ? trim( $_REQUEST['_ccbt_ps'] ) : 'cart-rest-api-for-woocommerce';
+
 		add_action( 'admin_menu', array( $this, 'add_to_menus' ) );
 		add_action( 'admin_init', array( $this, 'handle_version_switch' ) );
 	} // END __construct()
@@ -54,8 +71,8 @@ class CoCart_Beta_Tester_Version_Picker {
 		try {
 			include dirname( __FILE__ ) . '/class-cocart-beta-tester-plugin-upgrader.php';
 
-			$plugin_name = 'cart-rest-api-for-woocommerce';
-			$plugin      = 'cart-rest-api-for-woocommerce/cart-rest-api-for-woocommerce.php';
+			$plugin_name = $this->plugin_slug;
+			$plugin      = $this->plugin_file;
 			$skin_args   = array(
 				'type'    => 'web',
 				'url'     => 'plugins.php?page=cocart-beta-tester-version-picker',
@@ -124,7 +141,8 @@ class CoCart_Beta_Tester_Version_Picker {
 	 * @return string
 	 */
 	public function get_versions_html( $channel ) {
-		$tags = CoCart_Beta_Tester::instance()->get_tags( $channel );
+		$updates = new CoCart_Beta_Tester_Plugin_Update( $this->plugin_file, $this->plugin_slug );
+		$tags    = $updates->get_tags( $channel );
 
 		if ( ! $tags ) {
 			return '';
@@ -137,7 +155,11 @@ class CoCart_Beta_Tester_Version_Picker {
 			$versions_html .= '<div class="notice notice-success"><p>' . sprintf( esc_html__( 'Successfully switched version to %s.', 'cocart-beta-tester' ), esc_html( sanitize_text_field( wp_unslash( $_GET['switched-cocart-version'] ) ) ) ) . '</p></div>';
 		}
 
-		$plugin_data           = CoCart_Beta_Tester::instance()->get_plugin_data();
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$plugin_data           = get_plugin_data( WP_PLUGIN_DIR . '/' . $this->plugin_file );
 		$this->current_version = $plugin_data['Version'];
 
 		if ( 'nightly' !== $channel ) {
@@ -154,6 +176,11 @@ class CoCart_Beta_Tester_Version_Picker {
 				if ( $tag_version === $this->current_version ) {
 					$versions_html .= '<span class="ccbt-current-version">' . esc_html__( '&nbsp;Installed Version', 'cocart-beta-tester' ) . '</span>';
 				}
+
+				$versions_html .= sprintf(
+					'&nbsp;-&nbsp;<a target="_blank" href="%s">' . __( 'Changelog', 'cocart-beta-tester' ) . '</a>',
+					'https://github.com/co-cart/co-cart/blob/' . $tag->tag_name . '/CHANGELOG.md'
+				);
 
 				$versions_html .= '</label>';
 				$versions_html .= '</li>';
