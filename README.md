@@ -1,18 +1,19 @@
 <h1 align="center">CoCart - Beta Tester</h1>
 
-<p align="center"><img src="https://raw.githubusercontent.com/co-cart/co-cart/master/.github/Logo-1024x534.png.webp" alt="CoCart" /></p>
+<p align="center"><img src="https://cocart.xyz/wp-content/uploads/2021/11/cocart-home-default.png.webp" alt="CoCart" /></p>
 
-**CoCart Beta Tester** allows you to try out new versions of CoCart Lite before they are officially released.
+**CoCart Beta Tester** allows you to try out new versions of CoCart before they are officially released.
 
 **Use with caution, not on production sites. Beta releases may not be stable.**
 
 After activation, you'll be able to choose an update channel:
 
-1. Beta - Update to beta releases, RC, or stable, depending on what is newest.
-2. Release Candidate - Update to RC releases or stable, depending on what is newest.
-3. Stable - No beta updates. Default WordPress behavior.
+1. Nightly - Update to experimental functionality, may include features that are unstable and may not move forward into a beta release.
+2. Beta - Update to beta releases, RC, or stable, depending on what is newest.
+3. Release Candidate - Update to RC releases or stable, depending on what is newest.
+4. Stable - No beta updates. Default WordPress behavior.
 
-These will surface pre-releases via automatic updates in WordPress. Updates will replace your installed version of CoCart Lite.
+These will surface pre-releases via automatic updates in WordPress. Updates will replace your installed version of CoCart.
 
 **Note**, this will not check for updates on every admin page load unless you explicitly tell it to. You can do this by clicking the "Check Again" button from the WordPress updates screen or you can set the `COCART_BETA_TESTER_FORCE_UPDATE` to true in your `wp-config.php` file.
 
@@ -38,9 +39,9 @@ If you wish to install a specific version, hover over the admin bar in the dashb
 
 ## Frequently Asked Questions
 
-### Does this allow me to install multiple versions of CoCart Lite at the same time?
+### Does this allow me to install multiple versions of CoCart at the same time?
 
-No, updates will replace your currently installed version of CoCart Lite. You can switch to any version from this plugin via the interface however.
+No, updates will replace your currently installed version of CoCart. You can switch to any version from this plugin via the interface however.
 
 ### Where do updates come from?
 
@@ -66,7 +67,7 @@ Bugs can be reported to the [CoCart Beta Tester GitHub issue tracker](https://gi
 
 We have different channels at your disposal where you can find information about the CoCart project, discuss it and get involved:
 
-[![Twitter: cocartapi](https://img.shields.io/twitter/follow/cocartapi?style=social)](https://twitter.com/cocartapi) [![CoCart Github Stars](https://img.shields.io/github/stars/co-cart/cocart-beta-tester?style=social)](https://github.com/co-cart/cocart-beta-tester)
+[![Twitter: cocartapi](https://img.shields.io/twitter/follow/cocartapi?style=social)](https://twitter.com/cocartapi) [![CoCart Github Stars](https://img.shields.io/github/stars/co-cart/co-cart?style=social)](https://github.com/co-cart/co-cart)
 
 <ul>
   <li>📖 <strong>Docs</strong>: this is the place to learn how to use CoCart API. <a href="https://docs.cocart.xyz/#getting-started">Get started!</a></li>
