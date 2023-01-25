@@ -54,6 +54,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 
 		// Only check for beta updates if channel is not stable.
 		if ( 'stable' !== CoCart_Beta_Tester::get_settings()->channel ) {
+			add_action( 'install_plugins_pre_plugin-information', array( $this, 'install_plugin_information_style' ), 0 );
 			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'api_check' ) );
 			add_filter( 'plugins_api_result', array( $this, 'plugins_api_result' ), 10, 3 );
 			add_filter( 'upgrader_source_selection', array( $this, 'upgrader_source_selection' ), 10, 3 );
@@ -64,8 +65,10 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Enable auto updates for CoCart.
 	 *
 	 * @access public
-	 * @param  bool   $update Should this autoupdate.
-	 * @param  object $plugin Plugin being checked.
+	 *
+	 * @param bool   $update Should this autoupdate.
+	 * @param object $plugin Plugin being checked.
+	 *
 	 * @return bool
 	 */
 	public function auto_update_cocart( $update, $plugin ) {
@@ -77,10 +80,29 @@ class CoCart_Beta_Tester_Plugin_Update {
 	} // END auto_update_cocart()
 
 	/**
+	 * Applies some style tweaks for the information to display correctly.
+	 *
+	 * @access public
+	 *
+	 * @since 2.2.0
+	 */
+	public function install_plugin_information_style() {
+		?>
+		<style type="text/css">
+			.plugin-install-php h2 {
+				clear: inherit !important;
+			}
+		</style>
+		<?php
+	} // END install_plugin_information_style()
+
+	/**
 	 * Hook into the plugin update check and connect to GitHub.
 	 *
 	 * @access public
-	 * @param  object $transient The plugin data transient.
+	 *
+	 * @param object $transient The plugin data transient.
+	 *
 	 * @return object $transient Updated plugin data transient.
 	 */
 	public function api_check( $transient ) {
@@ -116,21 +138,22 @@ class CoCart_Beta_Tester_Plugin_Update {
 			'url'           => 'https://cocart.xyz',
 			'package'       => '',
 			'icons'         => array(
-				'2x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/icon-256x256.png' ),
-				'1x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/icon-128x128.png' ),
+				'2x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/icon-256x256.png' ),
+				'1x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/icon-128x128.png' ),
 			),
 			'banners'       => array(
-				'low'  => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-772x250.jpg' ),
-				'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg' ),
+				'low'  => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-772x250.jpg' ),
+				'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-1544x500.jpg' ),
 			),
 			'banners_rtl'   => array(),
 			'compatibility' => new stdClass(),
 		);
 
 		// Populate data if update is available.
-		if ( version_compare( ltrim( $new_version, 'v' ), $version, '>' ) ) {
+		if ( version_compare( ltrim( $new_version, 'v' ), $version, '>' ) || 'nightly' === $new_version ) {
 			$results->new_version = ltrim( $new_version, 'v' );
-			$results->package     = $this->get_download_url( $new_version );
+			$results->zip_url     = $this->get_download_url( $new_version );
+			$results->package     = $results->zip_url;
 
 			$transient->response[ $filename ] = $results;
 			unset( $transient->no_update[ $filename ] );
@@ -146,9 +169,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Filters the Plugin Installation API response results.
 	 *
 	 * @access public
-	 * @param  object|WP_Error $response Response object or WP_Error.
-	 * @param  string          $action The type of information being requested from the Plugin Installation API.
-	 * @param  object          $args Plugin API arguments.
+	 *
+	 * @param object|WP_Error $response Response object or WP_Error.
+	 * @param string          $action The type of information being requested from the Plugin Installation API.
+	 * @param object          $args Plugin API arguments.
+	 *
 	 * @return object
 	 */
 	public function plugins_api_result( $response, $action, $args ) {
@@ -163,9 +188,44 @@ class CoCart_Beta_Tester_Plugin_Update {
 
 		$new_version = $this->get_latest_channel_release();
 
-		if ( version_compare( ltrim( $new_version, 'v' ), $version, '=' ) ) {
+		if ( version_compare( $response->version, $new_version, '=' ) ) {
 			return $response;
 		}
+
+		$plugins_allowedtags = array(
+			'a'          => array(
+				'href'   => array(),
+				'title'  => array(),
+				'target' => array(),
+			),
+			'abbr'       => array( 'title' => array() ),
+			'acronym'    => array( 'title' => array() ),
+			'code'       => array(),
+			'pre'        => array(),
+			'em'         => array(),
+			'strong'     => array(),
+			'div'        => array( 'class' => array() ),
+			'span'       => array( 'class' => array() ),
+			'p'          => array(),
+			'br'         => array(),
+			'ul'         => array(),
+			'ol'         => array(),
+			'li'         => array(),
+			'h1'         => array(),
+			'h2'         => array(),
+			'h3'         => array(),
+			'h4'         => array(),
+			'h5'         => array(),
+			'h6'         => array(),
+			'img'        => array(
+				'src'   => array(),
+				'class' => array(),
+				'alt'   => array(),
+			),
+			'blockquote' => array( 'cite' => true ),
+		);
+
+		$warning = '';
 
 		// If we are returning a different version than the stable tag on .org, manipulate the returned data.
 		if ( $this->is_nightly_version( $new_version ) ) {
@@ -198,13 +258,13 @@ class CoCart_Beta_Tester_Plugin_Update {
 		$response->sections['changelog'] = $this->get_release_changelog( $new_version );
 
 		foreach ( $response->sections as $key => $section ) {
-			$response->sections[ $key ] = $warning . $section;
+			$response->sections[ $key ] = wp_kses( $warning . $section, $plugins_allowedtags );
 		}
 
 		// Override plugin banner.
 		$response->banners = array(
-			'low'  => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-772x250.jpg',
-			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/master/.wordpress-org/banner-1544x500.jpg',
+			'low'  => 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-772x250.jpg',
+			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-1544x500.jpg',
 		);
 
 		return $response;
@@ -214,10 +274,13 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Rename the downloaded zip.
 	 *
 	 * @access public
-	 * @param  string      $source        File source location.
-	 * @param  string      $remote_source Remote file source location.
-	 * @param  WP_Upgrader $upgrader      WordPress Upgrader instance.
-	 * @global object      $wp_filesystem WordPress file system.
+	 *
+	 * @param string      $source        File source location.
+	 * @param string      $remote_source Remote file source location.
+	 * @param WP_Upgrader $upgrader      WordPress Upgrader instance.
+	 *
+	 * @global object $wp_filesystem WordPress file system.
+	 *
 	 * @return string
 	 */
 	public function upgrader_source_selection( $source, $remote_source, $upgrader ) {
@@ -241,6 +304,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * API needs to be called for every single page load.
 	 *
 	 * @access public
+	 *
 	 * @return bool overrule or not.
 	 */
 	public function overrule_transients() {
@@ -251,7 +315,9 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Checks if a given version is a pre-release.
 	 *
 	 * @access public
-	 * @param  string $version Version to compare.
+	 *
+	 * @param string $version Version to compare.
+	 *
 	 * @return bool
 	 */
 	public function is_prerelease( $version ) {
@@ -262,6 +328,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Get latest channel release.
 	 *
 	 * @access public
+	 *
 	 * @return int $version the version number.
 	 */
 	public function get_latest_channel_release() {
@@ -311,9 +378,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Sort releases in order of tag name.
 	 *
 	 * @access public
-	 * @param  array $versions      - The releases unordered.
-	 * @param  bool  $reverse_order - Returns the releases in reverse order is true.
-	 * @return array $new_order     - The releases ordered by tag name.
+	 *
+	 * @param array $versions      The releases unordered.
+	 * @param bool  $reverse_order Returns the releases in reverse order is true.
+	 *
+	 * @return array $new_order The releases ordered by tag name.
 	 */
 	public function sort_release_order( $versions, $reverse_order = false ) {
 		$new_order = array();
@@ -337,6 +406,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Get Data from API URL.
 	 *
 	 * @access public
+	 *
 	 * @return array $plugin_data The data.
 	 */
 	public function get_data() {
@@ -369,7 +439,9 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Get plugin download URL.
 	 *
 	 * @access public
-	 * @param  string $version The version.
+	 *
+	 * @param string $version The version.
+	 *
 	 * @return string
 	 */
 	public function get_download_url( $version ) {
@@ -391,7 +463,9 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Get release date.
 	 *
 	 * @access public
-	 * @param  string $version The version.
+	 *
+	 * @param string $version The version.
+	 *
 	 * @return string
 	 */
 	public function get_release_date( $version ) {
@@ -401,33 +475,45 @@ class CoCart_Beta_Tester_Plugin_Update {
 
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
-				$release_date = $release->published_at;
+				$release_date = $release->created_at;
 				break;
 			}
 		}
 
-		return ! empty( $release_date ) ? date( 'Y-m-d', strtotime( $release_date ) ) : false;
+		return ! empty( $release_date ) ? date( 'Y-m-d h:i A e', strtotime( $release_date ) ) : false;
 	} // END get_release_date()
 
 	/**
 	 * Get release changelog.
 	 *
 	 * @access public
-	 * @param  string $version The version.
+	 *
+	 * @param string $version The version.
+	 *
 	 * @return string
 	 */
 	public function get_release_changelog( $version ) {
+		if ( ! class_exists( 'Parsedown' ) ) {
+			include_once dirname( COCART_BETA_TESTER_FILE ) . '/parsedown.php';
+		}
+		$Parsedown = new Parsedown();
+
+		if ( 'nightly' === $version ) {
+			$response = wp_remote_get( 'https://raw.githubusercontent.com/co-cart/co-cart/dev/NEXT_CHANGELOG.md' );
+
+			if ( is_wp_error( $response ) ) {
+				return false;
+			}
+
+			return $Parsedown->text( $response['body'] );
+		}
+
 		$releases = $this->get_data();
 
 		$changelog = '';
 
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
-				if ( ! class_exists( 'Parsedown' ) ) {
-					include_once dirname( COCART_BETA_TESTER_FILE ) . '/parsedown.php';
-				}
-				$Parsedown = new Parsedown();
-
 				$changelog = $Parsedown->text( $release->body );
 				break;
 			}
@@ -440,6 +526,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Get Plugin data.
 	 *
 	 * @access public
+	 *
 	 * @return object $data The data.
 	 */
 	public function get_plugin_data() {
@@ -454,8 +541,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if version string is a nightly version.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string.
+	 *
+	 * @param string $version_str Version string.
+	 *
 	 * @return bool
 	 */
 	protected static function is_nightly_version( $version_str ) {
@@ -466,8 +556,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if version string is a beta version.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string.
+	 *
+	 * @param string $version_str Version string.
+	 *
 	 * @return bool
 	 */
 	protected static function is_beta_version( $version_str ) {
@@ -478,8 +571,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if version string is a Release Candidate.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string.
+	 *
+	 * @param string $version_str Version string.
+	 *
 	 * @return bool
 	 */
 	protected static function is_rc_version( $version_str ) {
@@ -490,8 +586,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if version string is a stable version.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string.
+	 *
+	 * @param string $version_str Version string.
+	 *
 	 * @return bool
 	 */
 	protected static function is_stable_version( $version_str ) {
@@ -503,8 +602,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * if it's beta, rc or stable release.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string of the release.
+	 *
+	 * @param string $version_str Version string of the release.
+	 *
 	 * @return bool
 	 */
 	protected static function is_in_beta_channel( $version_str ) {
@@ -515,8 +617,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if release's version string belongs to nightly channel.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string of the release.
+	 *
+	 * @param string $version_str Version string of the release.
+	 *
 	 * @return bool
 	 */
 	protected static function is_in_nightly_channel( $version_str ) {
@@ -528,8 +633,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * if it's rc or stable release.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string of the release.
+	 *
+	 * @param string $version_str Version string of the release.
+	 *
 	 * @return bool
 	 */
 	protected static function is_in_rc_channel( $version_str ) {
@@ -541,8 +649,11 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * if it's stable release and not a beta or rc.
 	 *
 	 * @access protected
+	 *
 	 * @static
-	 * @param  string $version_str Version string of the release.
+	 *
+	 * @param string $version_str Version string of the release.
+	 *
 	 * @return bool
 	 */
 	protected static function is_in_stable_channel( $version_str ) {
@@ -553,7 +664,9 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return available versions from tags belonging to selected channel.
 	 *
 	 * @access public
-	 * @param  string $channel Filter versions by channel: all|beta|nightly|rc|stable.
+	 *
+	 * @param string $channel Filter versions by channel: all|beta|nightly|rc|stable.
+	 *
 	 * @return array(string)
 	 */
 	public function get_tags( $channel = 'all' ) {

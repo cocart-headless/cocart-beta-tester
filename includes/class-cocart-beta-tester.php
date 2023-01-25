@@ -23,6 +23,7 @@ class CoCart_Beta_Tester {
 	 * Main Instance.
 	 *
 	 * @access public
+	 *
 	 * @static
 	 */
 	public static function instance() {
@@ -48,6 +49,7 @@ class CoCart_Beta_Tester {
 	 * Ran on activation to flush update cache.
 	 *
 	 * @access public
+	 *
 	 * @static
 	 */
 	public static function activate() {
@@ -72,6 +74,7 @@ class CoCart_Beta_Tester {
 	 * Get the plugin url.
 	 *
 	 * @access public
+	 *
 	 * @return string
 	 */
 	public function plugin_url() {
@@ -82,7 +85,9 @@ class CoCart_Beta_Tester {
 	 * Show action links on the plugin screen.
 	 *
 	 * @access public
-	 * @param  mixed $links Plugin Action links.
+	 *
+	 * @param mixed $links Plugin Action links.
+	 *
 	 * @return array
 	 */
 	public function plugin_action_links( $links ) {
@@ -106,7 +111,9 @@ class CoCart_Beta_Tester {
 	 * Get plugin settings.
 	 *
 	 * @access public
+	 *
 	 * @static
+	 *
 	 * @return object
 	 */
 	public static function get_settings() {

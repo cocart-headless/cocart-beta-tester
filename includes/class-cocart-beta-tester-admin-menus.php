@@ -18,10 +18,7 @@ class CoCart_Beta_Tester_Admin_Menus {
 	 * @access public
 	 */
 	public function __construct() {
-		if ( class_exists( 'CoCart' ) ) {
-			add_action( 'admin_bar_menu', array( $this, 'admin_bar_menus' ), 50 );
-		}
-
+		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menus' ), 50 );
 		add_action( 'admin_head', array( $this, 'hide_from_menus' ) );
 	} // END __construct()
 
@@ -29,7 +26,8 @@ class CoCart_Beta_Tester_Admin_Menus {
 	 * Add the "CoCart Beta Tester" link in admin bar main menu.
 	 *
 	 * @access public
-	 * @param  WP_Admin_Bar $wp_admin_bar Admin bar instance.
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar Admin bar instance.
 	 */
 	public function admin_bar_menus( $wp_admin_bar ) {
 		if ( ! is_admin() || ! is_user_logged_in() ) {
@@ -125,6 +123,7 @@ class CoCart_Beta_Tester_Admin_Menus {
 	 * Hide menu items from view so the pages exist, but the menu items do not.
 	 *
 	 * @access public
+	 *
 	 * @global $submenu
 	 */
 	public function hide_from_menus() {

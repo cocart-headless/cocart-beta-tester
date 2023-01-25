@@ -22,8 +22,10 @@ class CoCart_Beta_Tester_Plugin_Upgrader extends Plugin_Upgrader {
 	 * Switch plugin version.
 	 *
 	 * @access public
-	 * @param  string $plugin Plugin we're switching.
-	 * @param  array  $args Args.
+	 *
+	 * @param string $plugin Plugin we're switching.
+	 * @param array  $args Args.
+	 *
 	 * @return array|bool|\WP_Error
 	 */
 	public function switch_version( $plugin, $args = array() ) {

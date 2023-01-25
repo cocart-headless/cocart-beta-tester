@@ -22,5 +22,4 @@ composer.lock
 # Various file types to ignore when exporting.
 .gitconfig
 *.zip
-*.json
 *.yml

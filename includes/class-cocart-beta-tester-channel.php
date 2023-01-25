@@ -23,7 +23,7 @@ class CoCart_Beta_Tester_Settings {
 	} // END __construct()
 
 	/**
-	 * Initialise settings.
+	 * Initialize settings.
 	 *
 	 * @access public
 	 */
@@ -64,7 +64,8 @@ class CoCart_Beta_Tester_Settings {
 	 * Update section HTML output.
 	 *
 	 * @access public
-	 * @param  array $args Arguments.
+	 *
+	 * @param array $args Arguments.
 	 */
 	public function update_section_html( $args ) {
 		?>
@@ -80,16 +81,17 @@ class CoCart_Beta_Tester_Settings {
 	 * Version select markup output.
 	 *
 	 * @access public
-	 * @param  array $args Arguments.
+	 *
+	 * @param array $args Arguments.
 	 */
 	public function version_select_html( $args ) {
 		$settings = CoCart_Beta_Tester::get_settings();
 
 		$channels = array(
-			/*'nightly'   => array(
+			'nightly'   => array(
 				'name'        => __( 'Nightly Releases', 'cocart-beta-tester' ),
 				'description' => __( 'Nightly releases contain experimental functionality for testing purposes only. This channel will include features that are unstable and may not move forward into a beta release.', 'cocart-beta-tester' ),
-			),*/
+			),
 			'beta'   => array(
 				'name'        => __( 'Beta Releases', 'cocart-beta-tester' ),
 				'description' => __( 'Beta releases contain upcoming features for testing purposes only. This channel will also include RC and stable releases if more current.', 'cocart-beta-tester' ),
@@ -125,7 +127,8 @@ class CoCart_Beta_Tester_Settings {
 	 * Auto updates checkbox markup output.
 	 *
 	 * @access public
-	 * @param  array $args Arguments.
+	 *
+	 * @param array $args Arguments.
 	 */
 	public function automatic_update_checkbox_html( $args ) {
 		$settings = CoCart_Beta_Tester::get_settings();

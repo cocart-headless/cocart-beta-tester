@@ -1,5 +1,9 @@
 # Changelog for CoCart Beta Tester
 
+## v2.2.0 - 25th January, 2023
+
+* Enhancement - Channel selection updated; Now you can choose to receive nightly builds.
+
 ## v2.1.0 - 21st January, 2022
 
 * Corrected plugin icon displayed on update page when an update is available.

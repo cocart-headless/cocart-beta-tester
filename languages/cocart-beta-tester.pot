@@ -1,14 +1,14 @@
-# Copyright (c) 2022 Sébastien Dumont
+# Copyright (c) 2023 Sébastien Dumont
 # This file is distributed under the same license as the CoCart package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CoCart Beta Tester 2.1.0\n"
+"Project-Id-Version: CoCart - Beta Tester 2.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/co-cart/cocart-beta-tester/issues\n"
-"POT-Creation-Date: 2022-01-21 11:03:40+00:00\n"
+"POT-Creation-Date: 2023-01-25 20:04:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Sébastien Dumont <mailme@sebastiendumont.com>\n"
 "Language: en_US\n"
@@ -28,44 +28,49 @@ msgstr ""
 msgid "Please pick a CoCart version."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:56
-#: includes/class-cocart-beta-tester-plugin-update.php:186
+#: includes/class-cocart-beta-tester-admin-menus.php:47
+#: includes/class-cocart-beta-tester-channel.php:149
+msgid "CoCart Beta Tester"
+msgstr ""
+
+#: includes/class-cocart-beta-tester-admin-menus.php:54
+#: includes/class-cocart-beta-tester-plugin-update.php:246
 msgid "Nightly Build"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:59
+#: includes/class-cocart-beta-tester-admin-menus.php:57
 msgid "Beta"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:62
+#: includes/class-cocart-beta-tester-admin-menus.php:60
 msgid "Release Candidate"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:65
+#: includes/class-cocart-beta-tester-admin-menus.php:63
 msgid "Stable"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:74
+#: includes/class-cocart-beta-tester-admin-menus.php:72
 #. translators: %s: current channel
 msgid "Channel: %s"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:94
+#: includes/class-cocart-beta-tester-admin-menus.php:92
 #. translators: %s: current version
 msgid "Release %s information"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:104
-#: includes/class-cocart-beta-tester.php:93
+#: includes/class-cocart-beta-tester-admin-menus.php:102
+#: includes/class-cocart-beta-tester.php:98
 msgid "Switch versions"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-admin-menus.php:110
+#: includes/class-cocart-beta-tester-admin-menus.php:108
 msgid "Submit bug report"
 msgstr ""
 
 #: includes/class-cocart-beta-tester-channel.php:35
-#: includes/class-cocart-beta-tester.php:98
+#: includes/class-cocart-beta-tester.php:103
 msgid "Settings"
 msgstr ""
 
@@ -77,14 +82,14 @@ msgstr ""
 msgid "Automatic Updates"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:71
+#: includes/class-cocart-beta-tester-channel.php:72
 msgid ""
 "The following settings allow you to choose which CoCart updates to receive "
 "on this site, including beta and RC versions not quite ready for production "
 "deployment."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:73
+#: includes/class-cocart-beta-tester-channel.php:74
 msgid ""
 "By their nature, if not using the stable channel, these releases are "
 "unstable and should not be used anyplace where your data is important. We "
@@ -94,136 +99,147 @@ msgid ""
 "screens, fatal errors, or any other issue arising from using this plugin."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:75
+#: includes/class-cocart-beta-tester-channel.php:76
 msgid ""
 "In order to hear about the latest beta releases, your best bet is to watch "
 "the %1$sdevelopment blog%2$s."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:94
+#: includes/class-cocart-beta-tester-channel.php:92
+msgid "Nightly Releases"
+msgstr ""
+
+#: includes/class-cocart-beta-tester-channel.php:93
+msgid ""
+"Nightly releases contain experimental functionality for testing purposes "
+"only. This channel will include features that are unstable and may not move "
+"forward into a beta release."
+msgstr ""
+
+#: includes/class-cocart-beta-tester-channel.php:96
 msgid "Beta Releases"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:95
+#: includes/class-cocart-beta-tester-channel.php:97
 msgid ""
 "Beta releases contain upcoming features for testing purposes only. This "
 "channel will also include RC and stable releases if more current."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:98
+#: includes/class-cocart-beta-tester-channel.php:100
 msgid "Release Candidates"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:99
+#: includes/class-cocart-beta-tester-channel.php:101
 msgid ""
 "Release candidates are released to ensure any critical problems have not "
 "gone undetected. This channel will also include stable releases if more "
 "current."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:102
+#: includes/class-cocart-beta-tester-channel.php:104
 msgid "Stable Releases"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:103
+#: includes/class-cocart-beta-tester-channel.php:105
 msgid "This is the default behavior in WordPress."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:107
+#: includes/class-cocart-beta-tester-channel.php:109
 msgid "Update Channel"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:135
+#: includes/class-cocart-beta-tester-channel.php:138
 msgid ""
 "If enabled, CoCart will update to the latest release in the background. Use "
 "with caution; we do not recommend using this on production stores!"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-channel.php:160
+#: includes/class-cocart-beta-tester-channel.php:163
 msgid "Settings Saved"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-plugin-update.php:172
+#: includes/class-cocart-beta-tester-plugin-update.php:232
 msgid "<h1><span>&#9888;</span>This is a nightly build<span>&#9888;</span></h1>"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-plugin-update.php:176
+#: includes/class-cocart-beta-tester-plugin-update.php:236
 msgid "<h1><span>&#9888;</span>This is a beta release<span>&#9888;</span></h1>"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-plugin-update.php:180
+#: includes/class-cocart-beta-tester-plugin-update.php:240
 msgid ""
 "<h1><span>&#9888;</span>This is a pre-release "
 "version<span>&#9888;</span></h1>"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:62
+#: includes/class-cocart-beta-tester-version-picker.php:64
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:79
+#: includes/class-cocart-beta-tester-version-picker.php:81
 msgid "Version switch result"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:95
+#: includes/class-cocart-beta-tester-version-picker.php:97
 msgid "Update failed"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:106
+#: includes/class-cocart-beta-tester-version-picker.php:108
 #. translators: 1: plugin name, 2: error message.
 msgid "%1$s could not be updated (%2$s)."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:128
-#: includes/class-cocart-beta-tester-version-picker.php:129
+#: includes/class-cocart-beta-tester-version-picker.php:131
+#: includes/class-cocart-beta-tester-version-picker.php:132
 msgid "CoCart Version Switch"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:155
+#: includes/class-cocart-beta-tester-version-picker.php:160
 #. translators: %s: CoCart version
 msgid "Successfully switched version to %s."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:177
+#: includes/class-cocart-beta-tester-version-picker.php:182
 msgid "&nbsp;Installed Version"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:181
+#: includes/class-cocart-beta-tester-version-picker.php:186
 msgid "Changelog"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:191
+#: includes/class-cocart-beta-tester-version-picker.php:196
 msgid ""
 "You are currently only able to install nightly builds of CoCart which does "
 "not have any version specified."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:217
+#: includes/class-cocart-beta-tester-version-picker.php:222
 msgid "Available CoCart Releases"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:226
-#: includes/class-cocart-beta-tester-version-picker.php:269
+#: includes/class-cocart-beta-tester-version-picker.php:231
+#: includes/class-cocart-beta-tester-version-picker.php:274
 msgid "Switch version"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:240
+#: includes/class-cocart-beta-tester-version-picker.php:245
 msgid "Are you sure you want to switch the version of CoCart plugin?"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:244
+#: includes/class-cocart-beta-tester-version-picker.php:249
 msgid "Close modal panel"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:253
+#: includes/class-cocart-beta-tester-version-picker.php:258
 msgid "Installed Version:"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:259
+#: includes/class-cocart-beta-tester-version-picker.php:264
 msgid "New Version:"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:266
+#: includes/class-cocart-beta-tester-version-picker.php:271
 msgid ""
 "Notice: We strongly recommend you perform the test on a staging site and "
 "create a complete backup of your WordPress files and database prior to "
@@ -232,7 +248,7 @@ msgid ""
 "using this plugin."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:270
+#: includes/class-cocart-beta-tester-version-picker.php:275
 msgid "Cancel"
 msgstr ""
 

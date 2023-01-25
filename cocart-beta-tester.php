@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name: CoCart Beta Tester
+ * Plugin Name: CoCart - Beta Tester
  * Plugin URI:  https://github.com/co-cart/cocart-beta-tester
- * Description: Easily update to prerelease versions of CoCart Lite for testing and development purposes.
+ * Description: Easily update to prerelease versions of CoCart for testing and development purposes.
  * Author:      CoCart
  * Author URI:  https://cocart.xyz
- * Version:     2.1.0
+ * Version:     2.2.0
  * Text Domain: cocart-beta-tester
  * Domain Path: /languages/
  * Requires at least: 5.5
- * Requires PHP: 7.3
+ * Requires PHP: 7.4
  * GitHub Plugin URI: https://github.com/co-cart/cocart-beta-tester
  *
  * @package CoCart_Beta_Tester
@@ -22,7 +22,7 @@ if ( ! defined( 'COCART_BETA_TESTER_FILE' ) ) {
 }
 
 if ( ! defined( 'COCART_BETA_TESTER_VERSION' ) ) {
-	define( 'COCART_BETA_TESTER_VERSION', '2.1.0' );
+	define( 'COCART_BETA_TESTER_VERSION', '2.2.0' );
 }
 
 /**
@@ -39,7 +39,8 @@ add_action( 'plugins_loaded', '_ccbt_load_text_domain' );
 /**
  * Returns the main instance of CoCart Beta Tester and only runs if it does not already exists.
  *
- * @since  2.0.0
+ * @since 2.0.0
+ *
  * @return CoCart_Beta_Tester
  */
 if ( ! function_exists( 'cocart_beta_tester' ) ) {
@@ -58,5 +59,7 @@ if ( ! function_exists( 'cocart_beta_tester' ) ) {
 		}
 	}
 
-	CoCart_Beta_Tester();
+	add_action( 'plugins_loaded', function(){
+		cocart_beta_tester();
+	}, 99 );
 }

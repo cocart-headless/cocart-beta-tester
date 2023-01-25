@@ -16,7 +16,8 @@ class CoCart_Beta_Tester_Version_Picker {
 	 * Currently installed version of the plugin.
 	 *
 	 * @access protected
-	 * @var    string
+	 *
+	 * @var string
 	 */
 	protected $current_version = '';
 
@@ -51,6 +52,7 @@ class CoCart_Beta_Tester_Version_Picker {
 	 * Handler for the version switch button.
 	 *
 	 * @access public
+	 *
 	 * @throws Exception On update error.
 	 */
 	public function handle_version_switch() {
@@ -120,6 +122,7 @@ class CoCart_Beta_Tester_Version_Picker {
 	 * Add options page to menu.
 	 *
 	 * @access public
+	 *
 	 * @return void
 	 */
 	public function add_to_menus() {
@@ -137,7 +140,9 @@ class CoCart_Beta_Tester_Version_Picker {
 	 * Return HTML code representation of list of CoCart versions for the selected channel.
 	 *
 	 * @access public
-	 * @param  string $channel Filter versions by channel: all|beta|rc|stable.
+	 *
+	 * @param string $channel Filter versions by channel: all|beta|rc|stable.
+	 *
 	 * @return string
 	 */
 	public function get_versions_html( $channel ) {
