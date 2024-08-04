@@ -8,23 +8,6 @@ module.exports = function(grunt) {
 		{
 			pkg: grunt.file.readJSON( 'package.json' ),
 
-			// Update developer dependencies
-			devUpdate: {
-				packages: {
-					options: {
-						packageJson: null,
-						packages: {
-							devDependencies: true,
-							dependencies: false
-						},
-						reportOnlyPkgs: [],
-						reportUpdated: false,
-						semver: true,
-						updateType: 'force'
-					}
-				}
-			},
-
 			// Minify JavaScript
 			uglify: {
 				options: {
@@ -62,13 +45,13 @@ module.exports = function(grunt) {
 							'vendor'
 						],
 						mainFile: '<%= pkg.name %>.php', // Main project file.
-						potComments: 'Copyright (c) {year} Sébastien Dumont\nThis file is distributed under the same license as the CoCart package.', // The copyright at the beginning of the POT file.
+						potComments: 'Copyright (c) {year} CoCart Headless, LLC\nThis file is distributed under the same license as the CoCart package.', // The copyright at the beginning of the POT file.
 						potFilename: '<%= pkg.name %>.pot', // Name of the POT file.
 						potHeaders: {
 							'poedit': true,                                       // Includes common Poedit headers.
 							'x-poedit-keywordslist': true,                        // Include a list of all possible gettext functions.
-							'Report-Msgid-Bugs-To': 'https://github.com/co-cart/cocart-beta-tester/issues',
-							'language-team': 'Sébastien Dumont <mailme@sebastiendumont.com>',
+							'Report-Msgid-Bugs-To': 'support@cocartapi.com',
+							'language-team': 'CoCart Headless, LLC <support@cocartapi.com>',
 							'language': 'en_US'
 						},
 						processPot: function( pot ) {
@@ -167,6 +150,10 @@ module.exports = function(grunt) {
 							to: "Requires PHP: <%= pkg.requires_php %>"
 						},
 						{
+							from: /Tested up to:.*$/m,
+							to: 'Tested up to: <%= pkg.tested_up_to %>'
+						},
+						{
 							from: /Version:.*$/m,
 							to: "Version:     <%= pkg.version %>"
 						},
@@ -215,7 +202,7 @@ module.exports = function(grunt) {
 							],
 							dest: 'build/',
 							dot: true
-					}
+						}
 					]
 				}
 			},
@@ -233,7 +220,7 @@ module.exports = function(grunt) {
 							cwd: './build/',
 							src: '**',
 							dest: '<%= pkg.name %>'
-					}
+						}
 					]
 				}
 			},
@@ -247,9 +234,6 @@ module.exports = function(grunt) {
 
 	// Set the default grunt command to run test cases.
 	grunt.registerTask( 'default', [ 'test' ] );
-
-	// Checks for developer dependencies updates.
-	grunt.registerTask( 'check', [ 'devUpdate' ] );
 
 	// Checks for errors.
 	grunt.registerTask( 'test', [ 'checktextdomain' ] );

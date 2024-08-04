@@ -1,16 +1,16 @@
-# Copyright (c) 2023 Sébastien Dumont
+# Copyright (c) 2024 CoCart Headless, LLC
 # This file is distributed under the same license as the CoCart package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CoCart - Beta Tester 2.2.0\n"
-"Report-Msgid-Bugs-To: https://github.com/co-cart/cocart-beta-tester/issues\n"
-"POT-Creation-Date: 2023-01-25 20:04:03+00:00\n"
+"Project-Id-Version: CoCart - Beta Tester 2.3.0\n"
+"Report-Msgid-Bugs-To: support@cocartapi.com\n"
+"POT-Creation-Date: 2024-08-04 22:45:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Sébastien Dumont <mailme@sebastiendumont.com>\n"
+"Language-Team: CoCart Headless, LLC <support@cocartapi.com>\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Country: United States\n"
@@ -34,7 +34,7 @@ msgid "CoCart Beta Tester"
 msgstr ""
 
 #: includes/class-cocart-beta-tester-admin-menus.php:54
-#: includes/class-cocart-beta-tester-plugin-update.php:246
+#: includes/class-cocart-beta-tester-plugin-update.php:253
 msgid "Nightly Build"
 msgstr ""
 
@@ -159,15 +159,15 @@ msgstr ""
 msgid "Settings Saved"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-plugin-update.php:232
+#: includes/class-cocart-beta-tester-plugin-update.php:239
 msgid "<h1><span>&#9888;</span>This is a nightly build<span>&#9888;</span></h1>"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-plugin-update.php:236
+#: includes/class-cocart-beta-tester-plugin-update.php:243
 msgid "<h1><span>&#9888;</span>This is a beta release<span>&#9888;</span></h1>"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-plugin-update.php:240
+#: includes/class-cocart-beta-tester-plugin-update.php:247
 msgid ""
 "<h1><span>&#9888;</span>This is a pre-release "
 "version<span>&#9888;</span></h1>"
@@ -204,42 +204,43 @@ msgstr ""
 msgid "&nbsp;Installed Version"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:186
+#: includes/class-cocart-beta-tester-version-picker.php:187
+#: includes/class-cocart-beta-tester-version-picker.php:192
 msgid "Changelog"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:196
+#: includes/class-cocart-beta-tester-version-picker.php:203
 msgid ""
 "You are currently only able to install nightly builds of CoCart which does "
 "not have any version specified."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:222
+#: includes/class-cocart-beta-tester-version-picker.php:229
 msgid "Available CoCart Releases"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:231
-#: includes/class-cocart-beta-tester-version-picker.php:274
+#: includes/class-cocart-beta-tester-version-picker.php:238
+#: includes/class-cocart-beta-tester-version-picker.php:281
 msgid "Switch version"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:245
+#: includes/class-cocart-beta-tester-version-picker.php:252
 msgid "Are you sure you want to switch the version of CoCart plugin?"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:249
+#: includes/class-cocart-beta-tester-version-picker.php:256
 msgid "Close modal panel"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:258
+#: includes/class-cocart-beta-tester-version-picker.php:265
 msgid "Installed Version:"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:264
+#: includes/class-cocart-beta-tester-version-picker.php:271
 msgid "New Version:"
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:271
+#: includes/class-cocart-beta-tester-version-picker.php:278
 msgid ""
 "Notice: We strongly recommend you perform the test on a staging site and "
 "create a complete backup of your WordPress files and database prior to "
@@ -248,7 +249,7 @@ msgid ""
 "using this plugin."
 msgstr ""
 
-#: includes/class-cocart-beta-tester-version-picker.php:275
+#: includes/class-cocart-beta-tester-version-picker.php:282
 msgid "Cancel"
 msgstr ""
 
@@ -259,20 +260,20 @@ msgid ""
 "updates from %2$sGitHub%3$s repository."
 msgstr ""
 
-#: includes/views/html-admin-notice-missing-cocart.php:40
+#: includes/views/html-admin-notice-missing-cocart.php:38
 msgid "Activate %s"
 msgstr ""
 
-#: includes/views/html-admin-notice-missing-cocart.php:44
+#: includes/views/html-admin-notice-missing-cocart.php:40
 msgid ""
 "As you do not have permission to activate a plugin. Please ask a site "
 "administrator to activate %s for you."
 msgstr ""
 
-#: includes/views/html-admin-notice-missing-cocart.php:59
+#: includes/views/html-admin-notice-missing-cocart.php:52
 msgid "Install %s"
 msgstr ""
 
-#: includes/views/html-admin-notice-missing-cocart.php:70
+#: includes/views/html-admin-notice-missing-cocart.php:62
 msgid "Turn off Beta Tester"
 msgstr ""
