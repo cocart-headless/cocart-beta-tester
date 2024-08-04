@@ -51,7 +51,6 @@ class CoCart_Beta_Tester_Admin_Assets {
 			wp_enqueue_script( 'cc-beta-tester-version-picker' );
 		}
 	} // END admin_scripts()
-
 } // END class
 
 return new CoCart_Beta_Tester_Admin_Assets();

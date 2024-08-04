@@ -49,7 +49,7 @@ if ( ! function_exists( 'cocart_beta_tester' ) ) {
 	 */
 	function cocart_beta_tester() {
 		if ( ! defined( 'COCART_VERSION' ) ) {
-			add_action( 'admin_notices', function() {
+			add_action( 'admin_notices', function () {
 				include_once untrailingslashit( plugin_dir_path( COCART_BETA_TESTER_FILE ) ) . '/includes/views/html-admin-notice-missing-cocart.php';
 			} );
 		} elseif ( ! class_exists( 'CoCart_Beta_Tester' ) ) {
@@ -59,7 +59,7 @@ if ( ! function_exists( 'cocart_beta_tester' ) ) {
 		}
 	}
 
-	add_action( 'plugins_loaded', function(){
+	add_action( 'plugins_loaded', function () {
 		cocart_beta_tester();
 	}, 99 );
 }

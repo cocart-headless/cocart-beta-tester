@@ -36,6 +36,13 @@ class CoCart_Beta_Tester_Plugin_Update {
 	public $api_url;
 
 	/**
+	 * Plugin Data
+	 *
+	 * @var string
+	 */
+	public $plugin_data;
+
+	/**
 	 * Constructor.
 	 *
 	 * @access public
@@ -135,7 +142,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 			'slug'          => $plugin_slug,
 			'plugin'        => $filename,
 			'new_version'   => $version,
-			'url'           => 'https://cocart.xyz',
+			'url'           => 'https://cocartapi.com',
 			'package'       => '',
 			'icons'         => array(
 				'2x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/icon-256x256.png' ),
@@ -335,7 +342,6 @@ class CoCart_Beta_Tester_Plugin_Update {
 		$tagged_version = get_site_transient( md5( $this->plugin_slug ) . '_latest_tag' );
 
 		if ( $this->overrule_transients() || empty( $tagged_version ) ) {
-
 			$versions = $this->get_data();
 			$versions = $this->sort_release_order( $versions, true );
 			$channel  = CoCart_Beta_Tester::get_settings()->channel;
@@ -391,7 +397,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 			$new_order[ $version->tag_name ] = $version;
 		}
 
-		usort( $new_order, function( $a, $b ) {
+		usort( $new_order, function ( $a, $b ) {
 			return -1 * version_compare( $a->tag_name, $b->tag_name );
 		});
 
@@ -540,7 +546,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	/**
 	 * Return true if version string is a nightly version.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -548,14 +554,14 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_nightly_version( $version_str ) {
+	public static function is_nightly_version( $version_str ) {
 		return strpos( $version_str, 'nightly' ) !== false || strpos( $version_str, 'nb' ) !== false || strpos( $version_str, 'night-build' ) !== false;
 	} // END is_nightly_version()
 
 	/**
 	 * Return true if version string is a beta version.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -563,14 +569,14 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_beta_version( $version_str ) {
+	public static function is_beta_version( $version_str ) {
 		return strpos( $version_str, 'beta' ) !== false;
 	} // END is_beta_version()
 
 	/**
 	 * Return true if version string is a Release Candidate.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -578,14 +584,14 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_rc_version( $version_str ) {
+	public static function is_rc_version( $version_str ) {
 		return strpos( $version_str, 'rc' ) !== false || strpos( $version_str, 'RC' ) !== false;
 	} // END is_rc_version()
 
 	/**
 	 * Return true if version string is a stable version.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -593,7 +599,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_stable_version( $version_str ) {
+	public static function is_stable_version( $version_str ) {
 		return ! self::is_beta_version( $version_str ) && ! self::is_nightly_version( $version_str ) && ! self::is_rc_version( $version_str );
 	} // END is_stable_version()
 
@@ -601,7 +607,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if release's version string belongs to beta channel, i.e.
 	 * if it's beta, rc or stable release.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -609,14 +615,14 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_in_beta_channel( $version_str ) {
+	public static function is_in_beta_channel( $version_str ) {
 		return self::is_beta_version( $version_str ) || self::is_rc_version( $version_str ) || self::is_stable_version( $version_str );
 	} // END is_in_beta_channel()
 
 	/**
 	 * Return true if release's version string belongs to nightly channel.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -624,7 +630,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_in_nightly_channel( $version_str ) {
+	public static function is_in_nightly_channel( $version_str ) {
 		return self::is_nightly_version( $version_str );
 	} // END is_in_nightly_channel()
 
@@ -632,7 +638,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if release's version string belongs to release candidate channel, i.e.
 	 * if it's rc or stable release.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -640,7 +646,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_in_rc_channel( $version_str ) {
+	public static function is_in_rc_channel( $version_str ) {
 		return self::is_rc_version( $version_str ) || self::is_stable_version( $version_str );
 	} // END is_in_rc_channel()
 
@@ -648,7 +654,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 * Return true if release's version string belongs to stable channel, i.e.
 	 * if it's stable release and not a beta or rc.
 	 *
-	 * @access protected
+	 * @access public
 	 *
 	 * @static
 	 *
@@ -656,7 +662,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 	 *
 	 * @return bool
 	 */
-	protected static function is_in_stable_channel( $version_str ) {
+	public static function is_in_stable_channel( $version_str ) {
 		return self::is_stable_version( $version_str );
 	} // END is_in_stable_channel()
 
@@ -702,5 +708,4 @@ class CoCart_Beta_Tester_Plugin_Update {
 
 		return $tags;
 	} // END get_tags()
-
 } // END class

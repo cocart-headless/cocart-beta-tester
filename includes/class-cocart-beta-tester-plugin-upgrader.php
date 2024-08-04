@@ -71,5 +71,4 @@ class CoCart_Beta_Tester_Plugin_Upgrader extends Plugin_Upgrader {
 
 		return true;
 	} // END switch_version()
-
 } // END class

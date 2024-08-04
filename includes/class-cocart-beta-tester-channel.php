@@ -73,7 +73,7 @@ class CoCart_Beta_Tester_Settings {
 
 		<p><?php esc_html_e( 'By their nature, if not using the stable channel, these releases are unstable and should not be used anyplace where your data is important. We strongly recommend you perform the test on a staging site and create a complete backup of your WordPress files and database prior to performing a version switch. We are not responsible for any misuse, deletions, white screens, fatal errors, or any other issue arising from using this plugin.', 'cocart-beta-tester' ); ?></p>
 
-		<p><?php echo sprintf( __( 'In order to hear about the latest beta releases, your best bet is to watch the %1$sdevelopment blog%2$s.', 'cocart-beta-tester' ), '<a href="https://cocart.dev/news/" target="_blank">', '</a>' ); ?></p>
+		<p><?php printf( __( 'In order to hear about the latest beta releases, your best bet is to watch the %1$sdevelopment blog%2$s.', 'cocart-beta-tester' ), '<a href="https://cocart.dev/news/" target="_blank">', '</a>' ); ?></p>
 		<?php
 	} // END update_section_html()
 
@@ -88,19 +88,19 @@ class CoCart_Beta_Tester_Settings {
 		$settings = CoCart_Beta_Tester::get_settings();
 
 		$channels = array(
-			'nightly'   => array(
+			'nightly' => array(
 				'name'        => __( 'Nightly Releases', 'cocart-beta-tester' ),
 				'description' => __( 'Nightly releases contain experimental functionality for testing purposes only. This channel will include features that are unstable and may not move forward into a beta release.', 'cocart-beta-tester' ),
 			),
-			'beta'   => array(
+			'beta'    => array(
 				'name'        => __( 'Beta Releases', 'cocart-beta-tester' ),
 				'description' => __( 'Beta releases contain upcoming features for testing purposes only. This channel will also include RC and stable releases if more current.', 'cocart-beta-tester' ),
 			),
-			'rc'     => array(
+			'rc'      => array(
 				'name'        => __( 'Release Candidates', 'cocart-beta-tester' ),
 				'description' => __( 'Release candidates are released to ensure any critical problems have not gone undetected. This channel will also include stable releases if more current.', 'cocart-beta-tester' ),
 			),
-			'stable' => array(
+			'stable'  => array(
 				'name'        => __( 'Stable Releases', 'cocart-beta-tester' ),
 				'description' => __( 'This is the default behavior in WordPress.', 'cocart-beta-tester' ),
 			),
@@ -178,7 +178,6 @@ class CoCart_Beta_Tester_Settings {
 		</div>
 		<?php
 	} // END settings_page_html()
-
 } // END class
 
 new CoCart_Beta_Tester_Settings();

@@ -71,7 +71,7 @@ class CoCart_Beta_Tester_Version_Picker {
 		}
 
 		try {
-			include dirname( __FILE__ ) . '/class-cocart-beta-tester-plugin-upgrader.php';
+			include __DIR__ . '/class-cocart-beta-tester-plugin-upgrader.php';
 
 			$plugin_name = $this->plugin_slug;
 			$plugin      = $this->plugin_file;
@@ -182,10 +182,17 @@ class CoCart_Beta_Tester_Version_Picker {
 					$versions_html .= '<span class="ccbt-current-version">' . esc_html__( '&nbsp;Installed Version', 'cocart-beta-tester' ) . '</span>';
 				}
 
-				$versions_html .= sprintf(
-					'&nbsp;-&nbsp;<a target="_blank" href="%s">' . __( 'Changelog', 'cocart-beta-tester' ) . '</a>',
-					'https://github.com/co-cart/co-cart/blob/' . $tag->tag_name . '/CHANGELOG.md'
-				);
+				if ( ! $updates->is_stable_version( $tag_version ) ) {
+					$versions_html .= sprintf(
+						'&nbsp;-&nbsp;<a target="_blank" href="%s">' . __( 'Changelog', 'cocart-beta-tester' ) . '</a>',
+						'https://github.com/co-cart/co-cart/blob/' . $tag->tag_name . '/NEXT_CHANGELOG.md'
+					);
+				} else {
+					$versions_html .= sprintf(
+						'&nbsp;-&nbsp;<a target="_blank" href="%s">' . __( 'Changelog', 'cocart-beta-tester' ) . '</a>',
+						'https://github.com/co-cart/co-cart/blob/' . $tag->tag_name . '/CHANGELOG.md'
+					);
+				}
 
 				$versions_html .= '</label>';
 				$versions_html .= '</li>';
@@ -285,7 +292,6 @@ class CoCart_Beta_Tester_Version_Picker {
 		</div>
 		<?php
 	} // END select_versions_form_html()
-
 } // END class
 
 new CoCart_Beta_Tester_Version_Picker();

@@ -139,7 +139,6 @@ class CoCart_Beta_Tester_Admin_Menus {
 			}
 		}
 	} // END hide_from_menus()
-
 } // END class
 
 return new CoCart_Beta_Tester_Admin_Menus();

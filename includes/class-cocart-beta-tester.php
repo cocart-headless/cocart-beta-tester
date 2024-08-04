@@ -62,12 +62,12 @@ class CoCart_Beta_Tester {
 	 * @access public
 	 */
 	public function includes() {
-		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-admin-assets.php';
-		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-admin-menus.php';
-		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-channel.php';
-		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-plugin-update.php';
-		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-core.php';
-		include_once dirname( __FILE__ ) . '/class-cocart-beta-tester-version-picker.php';
+		include_once __DIR__ . '/class-cocart-beta-tester-admin-assets.php';
+		include_once __DIR__ . '/class-cocart-beta-tester-admin-menus.php';
+		include_once __DIR__ . '/class-cocart-beta-tester-channel.php';
+		include_once __DIR__ . '/class-cocart-beta-tester-plugin-update.php';
+		include_once __DIR__ . '/class-cocart-beta-tester-core.php';
+		include_once __DIR__ . '/class-cocart-beta-tester-version-picker.php';
 	} // END includes()
 
 	/**
@@ -130,5 +130,4 @@ class CoCart_Beta_Tester {
 
 		return $settings;
 	} // END get_settings()
-
 } // END class
