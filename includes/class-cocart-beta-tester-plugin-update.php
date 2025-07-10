@@ -149,8 +149,8 @@ class CoCart_Beta_Tester_Plugin_Update {
 				'1x' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/icon-128x128.png' ),
 			),
 			'banners'       => array(
-				'low'  => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-772x250.jpg' ),
-				'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-1544x500.jpg' ),
+				'low'  => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-772x250.png' ),
+				'high' => esc_url( 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-1544x500.png' ),
 			),
 			'banners_rtl'   => array(),
 			'compatibility' => new stdClass(),
@@ -270,8 +270,8 @@ class CoCart_Beta_Tester_Plugin_Update {
 
 		// Override plugin banner.
 		$response->banners = array(
-			'low'  => 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-772x250.jpg',
-			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-1544x500.jpg',
+			'low'  => 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-772x250.png',
+			'high' => 'https://raw.githubusercontent.com/co-cart/co-cart/trunk/.wordpress-org/banner-1544x500.png',
 		);
 
 		return $response;
@@ -502,16 +502,16 @@ class CoCart_Beta_Tester_Plugin_Update {
 		if ( ! class_exists( 'Parsedown' ) ) {
 			include_once dirname( COCART_BETA_TESTER_FILE ) . '/parsedown.php';
 		}
-		$Parsedown = new Parsedown();
+		$parsedown = new Parsedown();
 
 		if ( 'nightly' === $version ) {
-			$response = wp_remote_get( 'https://raw.githubusercontent.com/co-cart/co-cart/dev/NEXT_CHANGELOG.md' );
+			$response = wp_remote_get( 'https://raw.githubusercontent.com/co-cart/co-cart/development/NEXT_CHANGELOG.md' );
 
 			if ( is_wp_error( $response ) ) {
 				return false;
 			}
 
-			return $Parsedown->text( $response['body'] );
+			return $parsedown->text( $response['body'] );
 		}
 
 		$releases = $this->get_data();
@@ -520,7 +520,7 @@ class CoCart_Beta_Tester_Plugin_Update {
 
 		foreach ( $releases as $release ) {
 			if ( $version === $release->tag_name ) {
-				$changelog = $Parsedown->text( $release->body );
+				$changelog = $parsedown->text( $release->body );
 				break;
 			}
 		}

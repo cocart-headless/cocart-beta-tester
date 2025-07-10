@@ -13,7 +13,9 @@ Thumbs.db
 
 # Composer
 /vendor/
-composer.lock
+
+# Languages
+!/languages/README.md
 
 # Build & Releases
 /build/
@@ -22,4 +24,3 @@ composer.lock
 # Various file types to ignore when exporting.
 .gitconfig
 *.zip
-*.yml
